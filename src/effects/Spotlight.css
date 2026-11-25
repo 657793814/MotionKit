@@ -1,0 +1,178 @@
+.spot-demo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 420px;
+  padding: 24px;
+}
+
+.spot-demo__glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  filter: blur(90px);
+  opacity: 0.5;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: background 0.4s ease;
+}
+
+.spot-card {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: min(400px, 100%);
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 24px;
+  background:
+    linear-gradient(160deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.012) 45%),
+    var(--panel);
+  box-shadow:
+    0 30px 60px -30px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+
+.spot-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    var(--spot-size) circle at var(--mx) var(--my),
+    var(--spot),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.spot-card:hover::before {
+  opacity: 1;
+}
+
+.spot-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    180px circle at var(--mx) var(--my),
+    var(--spot-line),
+    transparent 65%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.spot-card.has-edge:hover::after {
+  opacity: 1;
+}
+
+.spot-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spot-card__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: linear-gradient(145deg, rgba(59, 130, 246, 0.28), rgba(34, 211, 238, 0.08));
+  color: #93c5fd;
+  font-size: 19px;
+}
+
+.spot-card__chip {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--muted);
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.spot-card__title {
+  margin: 22px 0 10px;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+}
+
+.spot-card__desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.75;
+}
+
+.spot-card__list {
+  margin: 20px 0 24px;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.spot-card__list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--text-soft);
+}
+
+.spot-card__list i {
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 2px 5px;
+}
+
+.spot-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 11px;
+  background: linear-gradient(120deg, #3b82f6, #1d4ed8);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 10px 24px -12px rgba(59, 130, 246, 0.9);
+}
+
+.spot-card__cta span {
+  transition: transform 0.25s ease;
+}
+
+.spot-card__cta:hover span {
+  transform: translateX(3px);
+}
+
+.spot-card__corner {
+  position: absolute;
+  right: 26px;
+  bottom: 26px;
+  font-size: 11px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+}

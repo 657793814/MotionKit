@@ -1,0 +1,169 @@
+.tilt-demo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 440px;
+  padding: 30px 20px;
+}
+
+.tilt-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+}
+
+.tilt-card {
+  --gx: 50%;
+  --gy: 50%;
+  position: relative;
+  z-index: 2;
+  width: min(370px, 100%);
+  aspect-ratio: 1.62 / 1;
+  padding: 22px 24px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background:
+    radial-gradient(circle at 85% 15%, rgba(34, 211, 238, 0.18), transparent 45%),
+    radial-gradient(circle at 10% 90%, rgba(59, 130, 246, 0.35), transparent 55%),
+    linear-gradient(140deg, #1c1433 0%, #0b0d16 55%, #101829 100%);
+  color: #f4f4f8;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow:
+    0 45px 70px -40px rgba(0, 0, 0, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  will-change: transform;
+  cursor: crosshair;
+}
+
+.tilt-card__stars {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, 0.65), transparent),
+    radial-gradient(1px 1px at 70% 20%, rgba(255, 255, 255, 0.45), transparent),
+    radial-gradient(1px 1px at 45% 72%, rgba(255, 255, 255, 0.4), transparent),
+    radial-gradient(1.5px 1.5px at 85% 62%, rgba(255, 255, 255, 0.5), transparent),
+    radial-gradient(1px 1px at 12% 82%, rgba(255, 255, 255, 0.35), transparent);
+  opacity: 0.8;
+}
+
+.tilt-card__glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    280px circle at var(--gx) var(--gy),
+    rgba(255, 255, 255, calc(var(--tilt-glare) * 0.22)),
+    transparent 62%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+.tilt-card__ring {
+  position: absolute;
+  right: -70px;
+  top: -70px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 0 26px rgba(59, 130, 246, 0.05),
+    0 0 0 54px rgba(59, 130, 246, 0.03);
+  transform: translateZ(10px);
+}
+
+.tilt-card__top,
+.tilt-card__mid,
+.tilt-card__bottom {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tilt-card__brand {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.28em;
+  transform: translateZ(22px);
+}
+
+.tilt-card__chip {
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.18em;
+  color: rgba(244, 244, 248, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 4px 8px;
+  transform: translateZ(18px);
+}
+
+.tilt-card__mid {
+  margin-top: 28px;
+  align-items: flex-end;
+  transform: translateZ(34px);
+}
+
+.tilt-card__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.22em;
+  color: rgba(244, 244, 248, 0.55);
+  margin-bottom: 8px;
+}
+
+.tilt-card__mid strong {
+  font-size: clamp(26px, 6vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(100deg, #fff, #93c5fd 60%, #67e8f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.tilt-card__orb {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  color: #dbeafe;
+  font-size: 22px;
+  background: radial-gradient(circle at 35% 30%, rgba(147, 197, 253, 0.35), rgba(34, 211, 238, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 0 30px rgba(59, 130, 246, 0.35),
+    inset 0 0 20px rgba(255, 255, 255, 0.08);
+  transform: translateZ(40px);
+}
+
+.tilt-card__bottom {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 20px;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.14em;
+  color: rgba(244, 244, 248, 0.45);
+  transform: translateZ(16px);
+}
+
+.tilt-shadow {
+  position: absolute;
+  z-index: 1;
+  bottom: -28px;
+  width: min(300px, 70%);
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  filter: blur(24px);
+}

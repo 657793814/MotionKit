@@ -1,0 +1,372 @@
+/* MotionKit 自用效果：这些类被应用外壳（首页 / 侧栏 / 详情 / 提示中心）直接使用。 */
+
+.kit-caret {
+  display: inline-block;
+  width: 2px;
+  height: 0.92em;
+  margin-left: 3px;
+  border-radius: 2px;
+  background: var(--accent-bright);
+  vertical-align: -0.08em;
+  animation: kit-blink 1s steps(2, end) infinite;
+}
+
+@keyframes kit-blink {
+  50% { opacity: 0; }
+}
+
+.hero__typed {
+  display: inline-block;
+  min-height: 1.1em;
+}
+
+/* 标题打字机：块状光标 + 结束淡出 */
+.kit-typed {
+  --typed-caret: 0.44em;
+}
+
+.kit-typed__caret {
+  display: inline-block;
+  width: var(--typed-caret);
+  height: 0.86em;
+  margin-left: 0.1em;
+  border-radius: 1px;
+  background: currentColor;
+  opacity: 0.8;
+  vertical-align: -0.04em;
+  animation: kit-blink 0.9s steps(2, end) infinite;
+}
+
+.kit-typed.is-done .kit-typed__caret {
+  animation: kit-caret-out 260ms ease 900ms forwards;
+}
+
+@keyframes kit-caret-out {
+  to {
+    opacity: 0;
+    transform: scaleY(0.3);
+  }
+}
+
+/* 文字解码：还原过程中降低透明度 + 混一点主色，避免整行乱码太抢眼 */
+.kit-decode.is-decoding {
+  color: color-mix(in srgb, currentColor 74%, transparent);
+}
+
+/* 读屏专用全文（动画内容对读屏隐藏） */
+.kit-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.kit-magnetic {
+  will-change: transform;
+}
+
+/* 卡片错峰入场：与动效库里的 Stagger 同一条缓动曲线 */
+.fx-card {
+  animation: kit-card-in 480ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: var(--stagger, 0ms);
+}
+
+@keyframes kit-card-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 侧栏：滑动指示胶囊 + 菜单错峰入场 + 悬停轻移 */
+.kit-nav-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  border-radius: 99px;
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  transition:
+    transform 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    height 340ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 200ms ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.nav__item {
+  animation: kit-nav-in 420ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--nav-i, 0) * 18ms);
+}
+
+@keyframes kit-nav-in {
+  from { opacity: 0; transform: translateX(-8px); }
+  to { opacity: 1; transform: none; }
+}
+
+.nav__main {
+  transition: color 0.18s ease, transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav__item:hover .nav__main {
+  transform: translateX(2px);
+}
+
+/* 收藏星标弹跳：类切换时自动播放一次 */
+.nav__item.is-fav .nav__star svg,
+.fav-filter.is-on svg,
+.icon-btn.is-fav svg {
+  animation: kit-star-pop 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes kit-star-pop {
+  0% { transform: scale(0.6) rotate(-14deg); }
+  60% { transform: scale(1.28) rotate(6deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+/* 分类标签选中时轻弹一下 */
+.cat-tabs button.is-active {
+  animation: kit-tab-pop 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes kit-tab-pop {
+  0% { transform: scale(0.94); }
+  60% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* 顶栏图标切换（主题）：重挂载时旋入 */
+.topbar .icon-btn svg {
+  animation: kit-icon-in 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes kit-icon-in {
+  from { opacity: 0; transform: rotate(-90deg) scale(0.7); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 聚光灯：跟随指针的高光，仅改 CSS 变量 */
+.kit-spotlight {
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  isolation: isolate;
+}
+
+.kit-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    240px circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--accent) 20%, transparent),
+    transparent 68%
+  );
+  opacity: 0;
+  transition: opacity 220ms ease;
+}
+
+.kit-spotlight:hover::before {
+  opacity: 1;
+}
+
+/* 液态玻璃质感：用于关键浮层与胶囊 */
+.kit-glass {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), color-mix(in srgb, var(--accent) 8%, transparent));
+  backdrop-filter: blur(16px) saturate(150%);
+  -webkit-backdrop-filter: blur(16px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 16px 40px -26px rgba(0, 0, 0, 0.9);
+}
+
+:root[data-theme='light'] .kit-glass {
+  border-color: rgba(255, 255, 255, 0.7);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(219, 234, 254, 0.6));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 12px 30px -22px rgba(30, 64, 138, 0.45);
+}
+
+/* 滚动显现 + 错峰入场 */
+.kit-reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 520ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.kit-reveal.is-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+/* 跑马灯 */
+.kit-marquee {
+  position: relative;
+  overflow: hidden;
+  margin: 22px 0 0;
+  padding: 10px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.kit-marquee__row {
+  display: flex;
+  gap: 28px;
+  width: max-content;
+  animation: kit-marquee 34s linear infinite;
+}
+
+.kit-marquee__row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+}
+
+.kit-marquee__row i {
+  color: var(--accent-bright);
+  font-style: normal;
+  font-size: 8px;
+}
+
+@keyframes kit-marquee {
+  to { transform: translateX(-50%); }
+}
+
+/* 应用内轻提示（Toast） */
+.app-toast-host {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 900;
+  display: grid;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.app-toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 12px;
+  box-shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+  animation: app-toast-in 280ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.app-toast.is-leaving {
+  animation: app-toast-out 200ms ease both;
+}
+
+.app-toast__icon {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border-radius: 50%;
+  background: rgba(52, 211, 153, 0.16);
+  color: var(--emerald);
+  font-size: 11px;
+}
+
+.app-toast--info .app-toast__icon {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent-bright);
+}
+
+.app-toast__bar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  border-radius: 0 0 12px 12px;
+  background: var(--accent-bright);
+  transform-origin: left;
+  animation: app-toast-progress 2400ms linear both;
+}
+
+@keyframes app-toast-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes app-toast-out {
+  to { opacity: 0; transform: translateY(-8px) scale(0.98); }
+}
+
+@keyframes app-toast-progress {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* 骨架屏流光：智能选型等待态复用 */
+.ai-skeleton {
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, color-mix(in srgb, var(--accent-bright) 16%, transparent) 50%, transparent 70%);
+  background-size: 220% 100%;
+  animation: kit-shimmer 1.6s linear infinite;
+}
+
+@keyframes kit-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -100% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kit-caret,
+  .kit-typed__caret,
+  .fx-card,
+  .nav__item,
+  .kit-marquee__row,
+  .app-toast,
+  .app-toast__bar,
+  .ai-skeleton::after,
+  .nav__item.is-fav .nav__star svg,
+  .fav-filter.is-on svg,
+  .icon-btn.is-fav svg,
+  .cat-tabs button.is-active,
+  .topbar .icon-btn svg {
+    animation: none;
+  }
+
+  .kit-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .kit-typed__caret {
+    display: none;
+  }
+}

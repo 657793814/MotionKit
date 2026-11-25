@@ -1,0 +1,293 @@
+.plane-demo {
+  display: grid;
+  justify-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 18px 16px;
+}
+
+.plane-card {
+  position: relative;
+  width: min(620px, 100%);
+  min-height: 300px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 88% 8%, rgba(59, 130, 246, 0.13), transparent 42%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.045), transparent 46%),
+    var(--panel);
+  box-shadow: var(--shadow-lg);
+}
+
+.plane-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.plane-card__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--faint);
+}
+
+.plane-card__pill {
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel-2);
+  font-size: 10px;
+  color: var(--muted);
+}
+
+.plane-trip {
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--panel-2);
+}
+
+.plane-trip__route {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.plane-trip__city {
+  display: grid;
+  gap: 3px;
+  min-width: 78px;
+}
+
+.plane-trip__city:last-child {
+  text-align: right;
+}
+
+.plane-trip__city b {
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.plane-trip__city span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+}
+
+.plane-trip__line {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent-bright);
+}
+
+.plane-trip__line i {
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(to right, var(--line-strong) 0 5px, transparent 5px 9px);
+}
+
+.plane-trip__plane {
+  font-size: 14px;
+  transform: rotate(90deg);
+}
+
+.plane-trip__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.plane-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.plane-send {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 132px;
+  padding: 11px 16px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  background: linear-gradient(120deg, var(--accent), #1d4ed8);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 12px 26px -14px rgba(59, 130, 246, 0.95);
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease, background 0.2s ease;
+}
+
+.plane-send:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.plane-send:active:not(:disabled) {
+  transform: scale(var(--plane-press));
+}
+
+.plane-send.is-pressing {
+  transform: scale(var(--plane-press));
+  transition-duration: 0.09s;
+}
+
+.plane-send:disabled {
+  cursor: default;
+}
+
+.plane-send.is-sent {
+  background: linear-gradient(120deg, #059669, var(--emerald));
+  box-shadow: 0 12px 26px -14px rgba(52, 211, 153, 0.85);
+  animation: plane-done var(--plane-flight) ease-out both;
+}
+
+.plane-send__icon,
+.plane-flyer {
+  display: grid;
+  place-items: center;
+}
+
+.plane-send__icon {
+  width: 16px;
+  height: 16px;
+}
+
+.plane-send__icon svg,
+.plane-flyer svg {
+  width: 100%;
+  height: 100%;
+}
+
+.plane-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: plane-spin 0.7s linear infinite;
+}
+
+.plane-reset {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-2);
+  color: var(--text-soft);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+}
+
+.plane-reset:hover {
+  color: var(--accent-bright);
+  border-color: var(--line-strong);
+  background: var(--panel-3);
+}
+
+.plane-target {
+  position: absolute;
+  top: 22px;
+  right: 64px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px dashed var(--line-strong);
+  border-radius: 999px;
+  color: var(--faint);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+}
+
+.plane-target__icon {
+  color: var(--accent-bright);
+  font-size: 14px;
+  line-height: 1;
+}
+
+.plane-flight-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.plane-flyer {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  margin: -13px 0 0 -13px;
+  color: #fff;
+  filter: drop-shadow(0 4px 10px rgba(59, 130, 246, 0.8));
+  will-change: transform;
+}
+
+.plane-trail {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--accent-bright);
+  box-shadow: 0 0 10px 2px rgba(59, 130, 246, 0.55);
+  opacity: 0.55;
+  will-change: transform, opacity;
+}
+
+.plane-trail:nth-child(1) { opacity: 0.42; transform: scale(0.9); }
+.plane-trail:nth-child(2) { opacity: 0.3; transform: scale(0.78); }
+.plane-trail:nth-child(3) { opacity: 0.2; transform: scale(0.66); }
+.plane-trail:nth-child(4) { opacity: 0.12; transform: scale(0.54); }
+
+@keyframes plane-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes plane-done {
+  0% { transform: scale(0.96); }
+  60% { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 540px) {
+  .plane-card { padding: 18px 16px; }
+  .plane-trip { padding: 14px; }
+  .plane-trip__city b { font-size: 18px; }
+  .plane-target { right: 16px; top: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plane-send,
+  .plane-send.is-sent,
+  .plane-spinner {
+    animation: none !important;
+    transition: none !important;
+  }
+  .plane-flyer,
+  .plane-trail {
+    display: none;
+  }
+}

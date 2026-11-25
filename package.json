@@ -1,0 +1,29 @@
+{
+  "name": "ui-design-system",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "MotionKit — 可交互 UI 动效样式库、整套皮肤切换与智能推荐工作台",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -b --noEmit",
+    "predev": "npm run docs --silent",
+    "prebuild": "npm run docs --silent",
+    "docs": "node scripts/gen-effects-docs.mjs",
+    "docs:check": "node scripts/gen-effects-docs.mjs --check",
+    "find": "node scripts/find-effect.mjs"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "typescript": "^5.8.3",
+    "vite": "^6.4.3"
+  }
+}

@@ -1,0 +1,288 @@
+.gtab-demo {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.gtab-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  width: min(620px, 100%);
+  min-height: 380px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(70, 52, 130, 0.5), transparent 68%),
+    linear-gradient(180deg, rgba(12, 14, 24, 0.55), rgba(8, 10, 18, 0.86)),
+    #0a0c14;
+}
+
+.gtab-blob {
+  position: absolute;
+  display: block;
+  border-radius: 50%;
+  filter: blur(44px);
+  opacity: 0.7;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.gtab-blob--violet {
+  top: -90px;
+  left: -4%;
+  width: 300px;
+  height: 280px;
+  background: radial-gradient(circle at 42% 42%, #60a5fa, rgba(37, 99, 235, 0.12) 72%);
+  animation: gtab-drift-a 16s ease-in-out infinite alternate;
+}
+
+.gtab-blob--cyan {
+  top: 2%;
+  right: -6%;
+  width: 280px;
+  height: 260px;
+  background: radial-gradient(circle at 50% 45%, #22d3ee, rgba(8, 145, 178, 0.1) 72%);
+  animation: gtab-drift-b 19s ease-in-out infinite alternate;
+}
+
+.gtab-blob--pink {
+  bottom: -80px;
+  left: 26%;
+  width: 320px;
+  height: 240px;
+  background: radial-gradient(circle at 50% 50%, #f472b6, rgba(190, 24, 93, 0.1) 72%);
+  animation: gtab-drift-c 21s ease-in-out infinite alternate;
+}
+
+@keyframes gtab-drift-a {
+  from { transform: translate3d(-20px, 12px, 0) scale(0.94); }
+  to   { transform: translate3d(34px, -22px, 0) scale(1.1); }
+}
+
+@keyframes gtab-drift-b {
+  from { transform: translate3d(26px, -16px, 0) scale(1.08); }
+  to   { transform: translate3d(-30px, 24px, 0) scale(0.92); }
+}
+
+@keyframes gtab-drift-c {
+  from { transform: translate3d(14px, 18px, 0) scale(0.96); }
+  to   { transform: translate3d(-26px, -20px, 0) scale(1.12); }
+}
+
+/* 屏幕内容：给底部悬浮标签栏一个真实的承载场景 */
+.gtab-screen {
+  position: absolute;
+  inset: 0;
+  padding: 20px 22px 104px;
+  color: var(--text);
+  pointer-events: none;
+}
+
+.gtab-screen__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+}
+
+.gtab-screen__brand {
+  padding: 4px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+}
+
+.gtab-screen__hero {
+  display: grid;
+  gap: 6px;
+  margin-top: 46px;
+}
+
+.gtab-screen__tag,
+.gtab-screen__sub {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--faint);
+}
+
+.gtab-screen__hero b {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  text-shadow: 0 4px 26px rgba(0, 0, 0, 0.5);
+}
+
+.gtab-screen__sub {
+  letter-spacing: 0.04em;
+}
+
+.gtab-screen__rows {
+  display: grid;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.gtab-screen__rows i {
+  display: block;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.025));
+}
+
+.gtab-screen__rows i:nth-child(2) { opacity: 0.7; }
+.gtab-screen__rows i:nth-child(3) { opacity: 0.45; }
+
+/* ------------------------------------------------------------------
+   Floating glass tab bar
+   ------------------------------------------------------------------ */
+.gtab-bar {
+  position: absolute;
+  z-index: 2;
+  right: 18px;
+  bottom: 20px;
+  left: 18px;
+  display: flex;
+  height: 66px;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 22px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.05));
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    0 24px 54px -22px rgba(0, 0, 0, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.gtab-indicator {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 6px;
+  width: calc((100% - 12px) / 4);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  border-radius: 17px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.08));
+  -webkit-backdrop-filter: blur(var(--gtab-blur, 12px)) saturate(180%);
+  backdrop-filter: blur(var(--gtab-blur, 12px)) saturate(180%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    inset 0 -8px 16px rgba(255, 255, 255, 0.08),
+    0 8px 20px -10px rgba(0, 0, 0, 0.7);
+  transform: translate3d(0, 0, 0) scale(1, 1);
+  transform-origin: 50% 50%;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.gtab-indicator__shine {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 32% 0%, rgba(255, 255, 255, 0.62), transparent 72%);
+}
+
+.gtab-tab {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 3px;
+  flex: 1 1 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.gtab-tab__icon {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.42s cubic-bezier(0.2, 1.3, 0.3, 1), color 0.3s ease;
+}
+
+.gtab-tab__icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.gtab-tab__label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.gtab-tab.is-active {
+  color: var(--accent-bright);
+}
+
+.gtab-tab.is-active .gtab-tab__icon {
+  transform: translateY(-2px) scale(1.2);
+  color: var(--accent-bright);
+  filter: drop-shadow(0 2px 8px rgba(96, 165, 250, 0.6));
+}
+
+.gtab-tab.is-active .gtab-tab__label {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.gtab-tab:not(.is-active):hover {
+  color: var(--text-soft);
+}
+
+.gtab-readout {
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  color: var(--text-soft);
+}
+
+.gtab-readout span {
+  padding: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+@media (max-width: 540px) {
+  .gtab-stage { min-height: 360px; }
+  .gtab-screen__hero { margin-top: 34px; }
+  .gtab-screen__hero b { font-size: 32px; }
+  .gtab-bar { right: 12px; left: 12px; bottom: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gtab-blob { animation: none !important; }
+  .gtab-tab,
+  .gtab-tab__icon,
+  .gtab-tab__label { transition: none !important; }
+  .gtab-tab.is-active .gtab-tab__icon { transform: none; }
+}

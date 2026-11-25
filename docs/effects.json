@@ -1,0 +1,3689 @@
+{
+  "$comment": "自动生成，请勿手改。数据源 src/lib/catalog.ts + src/effects/index.ts，运行 npm run docs 重新生成。",
+  "count": 41,
+  "categories": [
+    {
+      "id": "pointer",
+      "label": "鼠标交互",
+      "count": 4
+    },
+    {
+      "id": "scroll",
+      "label": "滚动控制",
+      "count": 3
+    },
+    {
+      "id": "data",
+      "label": "数据与高光",
+      "count": 10
+    },
+    {
+      "id": "text",
+      "label": "文字动效",
+      "count": 2
+    },
+    {
+      "id": "base",
+      "label": "动画基础",
+      "count": 3
+    },
+    {
+      "id": "overlay",
+      "label": "弹窗提示",
+      "count": 6
+    },
+    {
+      "id": "glass",
+      "label": "液态玻璃",
+      "count": 5
+    },
+    {
+      "id": "component",
+      "label": "组件交互",
+      "count": 8
+    }
+  ],
+  "effects": [
+    {
+      "id": "spotlight",
+      "index": 1,
+      "name": "鼠标聚光灯",
+      "en": "Spotlight",
+      "tagline": "光晕跟随鼠标，让功能卡片自己发光",
+      "description": "在卡片内部监听鼠标坐标，把径向渐变光晕实时定位到指针位置，再叠加一圈边缘高光，让平面的卡片拥有「被照亮」的质感。适合功能区、定价卡、产品特性等需要强调高级感的模块。",
+      "category": "pointer",
+      "categoryLabel": "鼠标交互",
+      "tags": [
+        "鼠标跟随",
+        "光晕",
+        "卡片"
+      ],
+      "useCases": [
+        "SaaS 功能卡片",
+        "定价方案",
+        "AI 产品首页",
+        "作品集卡片"
+      ],
+      "keywords": [
+        "鼠标",
+        "光晕",
+        "聚光灯",
+        "跟随",
+        "卡片",
+        "发光",
+        "高级",
+        "照亮",
+        "特性",
+        "定价",
+        "官网",
+        "科技感",
+        "光"
+      ],
+      "tip": "只更新两个 CSS 变量，不触发布局重排。触屏设备建议降级为静态渐变，避免出现无法关闭的悬浮光。",
+      "component": {
+        "export": "Spotlight",
+        "path": "src/effects/Spotlight.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "size",
+          "label": "光晕半径",
+          "type": "range",
+          "default": 280,
+          "min": 120,
+          "max": 420,
+          "step": 10,
+          "unit": "px"
+        },
+        {
+          "key": "opacity",
+          "label": "光晕强度",
+          "type": "range",
+          "default": 0.28,
+          "min": 0.06,
+          "max": 0.5,
+          "step": 0.02,
+          "unit": ""
+        },
+        {
+          "key": "color",
+          "label": "光晕颜色",
+          "type": "color",
+          "default": "#3b82f6"
+        },
+        {
+          "key": "edge",
+          "label": "边缘高光",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "reveal",
+      "index": 2,
+      "name": "滚动显现",
+      "en": "Scroll Reveal",
+      "tagline": "内容随滚动逐段淡入，长页面不再平铺直叙",
+      "description": "用 IntersectionObserver 监听元素进入视口，再以位移、模糊与透明度过渡完成入场。支持方向、距离、延迟和模糊强度调节，是长落地页最通用的节奏控制器。",
+      "category": "scroll",
+      "categoryLabel": "滚动控制",
+      "tags": [
+        "滚动",
+        "淡入",
+        "长页面"
+      ],
+      "useCases": [
+        "落地页长页",
+        "产品介绍",
+        "博客正文",
+        "数据报告"
+      ],
+      "keywords": [
+        "滚动",
+        "显现",
+        "淡入",
+        "出现",
+        "长页面",
+        "入场",
+        "内容",
+        "视口",
+        "官网",
+        "介绍",
+        "进入",
+        "往下滑"
+      ],
+      "tip": "动画交给 CSS，JavaScript 只负责在进入视口时加 class。尊重 prefers-reduced-motion，直接显示全部内容。",
+      "component": {
+        "export": "Reveal",
+        "path": "src/effects/Reveal.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "direction",
+          "label": "入场方向",
+          "type": "select",
+          "default": "up",
+          "options": [
+            {
+              "label": "向上淡入",
+              "value": "up"
+            },
+            {
+              "label": "向下淡入",
+              "value": "down"
+            },
+            {
+              "label": "从左滑入",
+              "value": "left"
+            },
+            {
+              "label": "从右滑入",
+              "value": "right"
+            },
+            {
+              "label": "缩放淡入",
+              "value": "scale"
+            }
+          ]
+        },
+        {
+          "key": "distance",
+          "label": "位移距离",
+          "type": "range",
+          "default": 40,
+          "min": 0,
+          "max": 120,
+          "step": 4,
+          "unit": "px"
+        },
+        {
+          "key": "duration",
+          "label": "动画时长",
+          "type": "range",
+          "default": 700,
+          "min": 200,
+          "max": 1400,
+          "step": 50,
+          "unit": "ms"
+        },
+        {
+          "key": "blur",
+          "label": "模糊强度",
+          "type": "range",
+          "default": 6,
+          "min": 0,
+          "max": 16,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "stagger",
+          "label": "组内间隔",
+          "type": "range",
+          "default": 80,
+          "min": 0,
+          "max": 240,
+          "step": 10,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "borderBeam",
+      "index": 3,
+      "name": "边缘流光",
+      "en": "Border Beam",
+      "tagline": "一束光沿边框循环游走，把重点圈出来",
+      "description": "借助 @property 注册角度变量，让 conic-gradient 沿卡片边框持续旋转，再用 mask 裁出 1px 的描边。视觉上像一道流光在边缘巡逻，适合强调「推荐 / 在线 / 新增」等状态。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "边框",
+        "流光",
+        "强调"
+      ],
+      "useCases": [
+        "推荐套餐卡",
+        "AI 功能入口",
+        "限量活动",
+        "在线状态"
+      ],
+      "keywords": [
+        "边框",
+        "流光",
+        "循环",
+        "高亮",
+        "强调",
+        "发光",
+        "卡片",
+        "科技",
+        "推荐",
+        "在线",
+        "跑光",
+        "描边"
+      ],
+      "tip": "同屏只保留一个到两个流光焦点。多个光束同时旋转会互相抢注意力，也增加合成层开销。",
+      "component": {
+        "export": "BorderBeam",
+        "path": "src/effects/BorderBeam.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "speed",
+          "label": "旋转周期",
+          "type": "range",
+          "default": 4,
+          "min": 1,
+          "max": 12,
+          "step": 0.5,
+          "unit": "s"
+        },
+        {
+          "key": "thickness",
+          "label": "描边粗细",
+          "type": "range",
+          "default": 1.5,
+          "min": 1,
+          "max": 4,
+          "step": 0.5,
+          "unit": "px"
+        },
+        {
+          "key": "size",
+          "label": "光束长度",
+          "type": "range",
+          "default": 100,
+          "min": 30,
+          "max": 200,
+          "step": 10,
+          "unit": "deg"
+        },
+        {
+          "key": "color1",
+          "label": "主色",
+          "type": "color",
+          "default": "#3b82f6"
+        },
+        {
+          "key": "color2",
+          "label": "辅色",
+          "type": "color",
+          "default": "#22d3ee"
+        },
+        {
+          "key": "glow",
+          "label": "外发光",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "magnetic",
+      "index": 4,
+      "name": "磁吸按钮",
+      "en": "Magnetic Button",
+      "tagline": "按钮被鼠标轻轻吸引，移开后弹回原位",
+      "description": "计算指针相对按钮中心的偏移量，按比例施加位移与内部视差，离开时用带回弹的缓动复位。微小而克制的「不听话感」，会让主 CTA 变得难以忽视。",
+      "category": "pointer",
+      "categoryLabel": "鼠标交互",
+      "tags": [
+        "鼠标吸引",
+        "回弹",
+        "CTA"
+      ],
+      "useCases": [
+        "主 CTA",
+        "下载按钮",
+        "活动入口",
+        "404 页面"
+      ],
+      "keywords": [
+        "按钮",
+        "磁吸",
+        "鼠标",
+        "吸引",
+        "复位",
+        "回弹",
+        "点击",
+        "引导",
+        "交互",
+        "靠近",
+        "CTA"
+      ],
+      "tip": "强度控制在 0.2–0.4 最自然；保留键盘焦点样式，触屏与 reduced-motion 场景直接跳过磁吸逻辑。",
+      "component": {
+        "export": "Magnetic",
+        "path": "src/effects/Magnetic.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "strength",
+          "label": "磁吸强度",
+          "type": "range",
+          "default": 0.35,
+          "min": 0.05,
+          "max": 0.8,
+          "step": 0.05
+        },
+        {
+          "key": "range",
+          "label": "感应范围",
+          "type": "range",
+          "default": 300,
+          "min": 180,
+          "max": 420,
+          "step": 10,
+          "unit": "px"
+        },
+        {
+          "key": "duration",
+          "label": "复位时长",
+          "type": "range",
+          "default": 450,
+          "min": 200,
+          "max": 900,
+          "step": 50,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "scrollStory",
+      "index": 5,
+      "name": "滚动叙事",
+      "en": "Scroll Storytelling",
+      "tagline": "滚动代替点击，让页面像分镜一样推进",
+      "description": "外层容器撑出足够的滚动距离，内层内容 sticky 固定，再根据滚动进度切换章节与进度条。用户不必点击，滚动本身就是叙事节奏，适合讲清楚一个复杂产品或流程。",
+      "category": "scroll",
+      "categoryLabel": "滚动控制",
+      "tags": [
+        "sticky",
+        "分镜",
+        "进度"
+      ],
+      "useCases": [
+        "品牌官网",
+        "产品原理讲解",
+        "年度报告",
+        "时间线"
+      ],
+      "keywords": [
+        "滚动",
+        "叙事",
+        "固定",
+        "sticky",
+        "切换",
+        "官网",
+        "介绍",
+        "分镜",
+        "章节",
+        "流程",
+        "故事",
+        "进度",
+        "翻页"
+      ],
+      "tip": "章节数控制在 3–5 个。移动端务必提供「跳过」入口，别让用户被长距离滚动困住。",
+      "component": {
+        "export": "ScrollStory",
+        "path": "src/effects/ScrollStory.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "accent",
+          "label": "强调色",
+          "type": "color",
+          "default": "#3b82f6"
+        },
+        {
+          "key": "smooth",
+          "label": "切换时长",
+          "type": "range",
+          "default": 260,
+          "min": 80,
+          "max": 600,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "zoom",
+          "label": "背景缩放",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "progress",
+          "label": "显示进度",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "tilt3d",
+      "index": 6,
+      "name": "3D 倾斜",
+      "en": "3D Tilt",
+      "tagline": "卡片跟着鼠标轻微转动，屏幕里有了纵深",
+      "description": "根据指针在卡片内的相对位置，映射为 rotateX / rotateY 角度，再叠加随位置移动的高光与轻微缩放，营造手持卡片般的空间感。角度越小越高级，越大越接近玩具。",
+      "category": "pointer",
+      "categoryLabel": "鼠标交互",
+      "tags": [
+        "3D",
+        "透视",
+        "卡片"
+      ],
+      "useCases": [
+        "产品展示",
+        "会员卡",
+        "游戏卡片",
+        "作品集"
+      ],
+      "keywords": [
+        "3D",
+        "倾斜",
+        "鼠标",
+        "旋转",
+        "空间",
+        "卡片",
+        "立体",
+        "透视",
+        "高级",
+        "悬浮",
+        "跟随"
+      ],
+      "tip": "最大角度建议 6–12°。离开时把角度缓动回 0，并给 transform 加 will-change，避免抖动。",
+      "component": {
+        "export": "Tilt3D",
+        "path": "src/effects/Tilt3D.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "max",
+          "label": "最大角度",
+          "type": "range",
+          "default": 10,
+          "min": 2,
+          "max": 22,
+          "step": 1,
+          "unit": "°"
+        },
+        {
+          "key": "perspective",
+          "label": "透视距离",
+          "type": "range",
+          "default": 1000,
+          "min": 600,
+          "max": 1800,
+          "step": 50,
+          "unit": "px"
+        },
+        {
+          "key": "scale",
+          "label": "悬停缩放",
+          "type": "range",
+          "default": 1.02,
+          "min": 1,
+          "max": 1.1,
+          "step": 0.01
+        },
+        {
+          "key": "glare",
+          "label": "高光强度",
+          "type": "range",
+          "default": 0.45,
+          "min": 0,
+          "max": 1,
+          "step": 0.05
+        }
+      ]
+    },
+    {
+      "id": "textDecode",
+      "index": 7,
+      "name": "文字解码",
+      "en": "Text Decode",
+      "tagline": "乱码跳动后还原真身，科技感即刻拉满",
+      "description": "把目标文本逐位替换为随机字符，再按从左到右的顺序逐步「解密」回真实内容。用 requestAnimationFrame 控制节奏，可以让一排标题拥有终端解码般的观感。",
+      "category": "text",
+      "categoryLabel": "文字动效",
+      "tags": [
+        "乱码",
+        "科技感",
+        "标题"
+      ],
+      "useCases": [
+        "科技产品标题",
+        "AI 助手开场",
+        "黑客风界面",
+        "加载文案"
+      ],
+      "keywords": [
+        "文字",
+        "解码",
+        "乱码",
+        "随机",
+        "科技",
+        "标题",
+        "黑客",
+        "终端",
+        "还原",
+        "字符",
+        "加密",
+        "数字"
+      ],
+      "tip": "整个过程控制在 1–2 秒内。适合短的标题或标签，长段落会让可读性急剧下降。",
+      "component": {
+        "export": "TextDecode",
+        "path": "src/effects/TextDecode.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "text",
+          "label": "解码文本",
+          "type": "text",
+          "default": "构建下一代交互体验"
+        },
+        {
+          "key": "duration",
+          "label": "解码时长",
+          "type": "range",
+          "default": 1500,
+          "min": 600,
+          "max": 2800,
+          "step": 100,
+          "unit": "ms"
+        },
+        {
+          "key": "charset",
+          "label": "乱码字符集",
+          "type": "select",
+          "default": "tech",
+          "options": [
+            {
+              "label": "科技符号",
+              "value": "tech"
+            },
+            {
+              "label": "字母数字",
+              "value": "alnum"
+            },
+            {
+              "label": "二进制",
+              "value": "binary"
+            },
+            {
+              "label": "片假名",
+              "value": "kana"
+            }
+          ]
+        },
+        {
+          "key": "trigger",
+          "label": "触发方式",
+          "type": "select",
+          "default": "auto",
+          "options": [
+            {
+              "label": "自动播放",
+              "value": "auto"
+            },
+            {
+              "label": "悬停触发",
+              "value": "hover"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shimmer",
+      "index": 8,
+      "name": "流光扫过",
+      "en": "Shimmer",
+      "tagline": "一道高光扫过，告诉用户「正在处理」",
+      "description": "一条倾斜的半透明高光在元素上循环掠过，配合底色渐变，构成最轻量的加载与占位反馈。也可用于按钮、徽章等需要周期性提示的元素。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "加载",
+        "骨架屏",
+        "高光"
+      ],
+      "useCases": [
+        "骨架屏",
+        "AI 生成中",
+        "按钮加载",
+        "会员徽章"
+      ],
+      "keywords": [
+        "流光",
+        "扫过",
+        "高光",
+        "加载",
+        "骨架屏",
+        "loading",
+        "占位",
+        "提示",
+        "扫光",
+        "等待",
+        "生成中"
+      ],
+      "tip": "扫光速度 1.2–2s 最舒适。骨架屏必须保留真实布局尺寸，否则内容出现时会跳动。",
+      "component": {
+        "export": "Shimmer",
+        "path": "src/effects/Shimmer.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "duration",
+          "label": "扫光周期",
+          "type": "range",
+          "default": 1.8,
+          "min": 0.6,
+          "max": 3,
+          "step": 0.1,
+          "unit": "s"
+        },
+        {
+          "key": "angle",
+          "label": "高光角度",
+          "type": "range",
+          "default": 105,
+          "min": 0,
+          "max": 160,
+          "step": 5,
+          "unit": "°"
+        },
+        {
+          "key": "width",
+          "label": "高光宽度",
+          "type": "range",
+          "default": 32,
+          "min": 10,
+          "max": 80,
+          "step": 5,
+          "unit": "%"
+        },
+        {
+          "key": "color",
+          "label": "高光颜色",
+          "type": "color",
+          "default": "#ffffff"
+        },
+        {
+          "key": "loop",
+          "label": "循环播放",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "parallax",
+      "index": 9,
+      "name": "视差滚动",
+      "en": "Parallax",
+      "tagline": "前后景不同速滚动，一层屏幕装下山河",
+      "description": "监听滚动进度，把不同层级的元素乘以不同系数平移：近景快、远景慢，形成真实的纵深错觉。这里用纯 CSS 图层与滚动变量实现，无需任何动画库。",
+      "category": "scroll",
+      "categoryLabel": "滚动控制",
+      "tags": [
+        "视差",
+        "景深",
+        "场景"
+      ],
+      "useCases": [
+        "品牌故事",
+        "旅行专题",
+        "游戏官网",
+        "年度总结"
+      ],
+      "keywords": [
+        "视差",
+        "滚动",
+        "前后景",
+        "景深",
+        "层次",
+        "山水",
+        "空间",
+        "官网",
+        "场景",
+        "风景",
+        "纵深"
+      ],
+      "tip": "位移系数控制在 0.1–0.6。层数越多性能压力越大，移动端建议降低模糊与层数。",
+      "component": {
+        "export": "Parallax",
+        "path": "src/effects/Parallax.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "strength",
+          "label": "视差强度",
+          "type": "range",
+          "default": 0.55,
+          "min": 0,
+          "max": 1,
+          "step": 0.05
+        },
+        {
+          "key": "mouse",
+          "label": "鼠标微动",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "atmosphere",
+          "label": "氛围光雾",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "countUp",
+      "index": 10,
+      "name": "数字递增",
+      "en": "Count Up",
+      "tagline": "数字滚到目标值，数据瞬间有了重量",
+      "description": "用 requestAnimationFrame 推进进度，再通过缓动函数插值到目标数字，支持小数位、前后缀与自定义时长。进入视口或点击重播时触发，比静态数字更有说服力。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "数字",
+        "数据",
+        "计数"
+      ],
+      "useCases": [
+        "数据看板",
+        "融资公告",
+        "成绩单",
+        "倒计时"
+      ],
+      "keywords": [
+        "数字",
+        "递增",
+        "滚动",
+        "数据",
+        "计数",
+        "目标",
+        "倒计时",
+        "看板",
+        "统计",
+        "百分比",
+        "营收"
+      ],
+      "tip": "时长 1–1.8s 足够。金额与比例保留合理小数位，动画过程中也要避免数字宽度跳动，可使用等宽数字。",
+      "component": {
+        "export": "CountUp",
+        "path": "src/effects/CountUp.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "target",
+          "label": "目标数值",
+          "type": "number",
+          "default": 128.6,
+          "min": 0,
+          "max": 99999,
+          "step": 1
+        },
+        {
+          "key": "duration",
+          "label": "动画时长",
+          "type": "range",
+          "default": 1600,
+          "min": 600,
+          "max": 3000,
+          "step": 100,
+          "unit": "ms"
+        },
+        {
+          "key": "decimals",
+          "label": "小数位数",
+          "type": "range",
+          "default": 1,
+          "min": 0,
+          "max": 2,
+          "step": 1
+        },
+        {
+          "key": "prefix",
+          "label": "前缀",
+          "type": "text",
+          "default": "¥"
+        },
+        {
+          "key": "suffix",
+          "label": "后缀",
+          "type": "text",
+          "default": "万"
+        },
+        {
+          "key": "easing",
+          "label": "缓动曲线",
+          "type": "select",
+          "default": "expo",
+          "options": [
+            {
+              "label": "丝滑收尾",
+              "value": "expo"
+            },
+            {
+              "label": "回弹感",
+              "value": "back"
+            },
+            {
+              "label": "标准减速",
+              "value": "ease-out"
+            },
+            {
+              "label": "匀速",
+              "value": "linear"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hoverLift",
+      "index": 11,
+      "name": "悬停上浮",
+      "en": "Hover Lift",
+      "tagline": "悬停时轻轻抬起，暗示这里可以点",
+      "description": "通过 transform 位移、缩放和扩散阴影，让卡片在悬停时离开页面平面。成本极低，却是提升可点击感最有效的基础手法。",
+      "category": "pointer",
+      "categoryLabel": "鼠标交互",
+      "tags": [
+        "悬停",
+        "阴影",
+        "卡片"
+      ],
+      "useCases": [
+        "文章列表",
+        "商品卡",
+        "导航卡",
+        "仪表盘入口"
+      ],
+      "keywords": [
+        "悬停",
+        "上浮",
+        "卡片",
+        "抬起",
+        "点击",
+        "可点击",
+        "hover",
+        "阴影",
+        "列表",
+        "浮起",
+        "交互"
+      ],
+      "tip": "抬起 4–10px 即可。阴影方向要与页面光源一致，避免出现「贴纸浮在半空」的违和感。",
+      "component": {
+        "export": "HoverLift",
+        "path": "src/effects/HoverLift.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "lift",
+          "label": "抬起高度",
+          "type": "range",
+          "default": 8,
+          "min": 2,
+          "max": 24,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "scale",
+          "label": "悬停缩放",
+          "type": "range",
+          "default": 1.02,
+          "min": 1,
+          "max": 1.08,
+          "step": 0.01
+        },
+        {
+          "key": "shadow",
+          "label": "阴影浓度",
+          "type": "range",
+          "default": 0.5,
+          "min": 0,
+          "max": 1,
+          "step": 0.05
+        },
+        {
+          "key": "duration",
+          "label": "过渡时长",
+          "type": "range",
+          "default": 280,
+          "min": 120,
+          "max": 600,
+          "step": 20,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "typewriter",
+      "index": 12,
+      "name": "打字机效果",
+      "en": "Typewriter",
+      "tagline": "文字逐字敲出，像有人在屏幕那头说话",
+      "description": "按节奏逐个追加字符，配合闪烁光标与可选的循环删除。适合短标题、对话界面和终端风格演示，能显著放慢用户的阅读速度。",
+      "category": "text",
+      "categoryLabel": "文字动效",
+      "tags": [
+        "逐字",
+        "光标",
+        "对话"
+      ],
+      "useCases": [
+        "首页大标题",
+        "AI 对话",
+        "终端演示",
+        "个人签名"
+      ],
+      "keywords": [
+        "打字",
+        "打字机",
+        "文字",
+        "逐个",
+        "光标",
+        "对话",
+        "终端",
+        "标题",
+        "循环",
+        "输入",
+        "逐字"
+      ],
+      "tip": "每字 40–80ms。中文长句建议关闭循环，反复删除会让用户产生焦躁感。",
+      "component": {
+        "export": "Typewriter",
+        "path": "src/effects/Typewriter.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "text",
+          "label": "键入文本",
+          "type": "text",
+          "default": "你好，我是 MotionKit。\n让界面动起来。"
+        },
+        {
+          "key": "speed",
+          "label": "每字间隔",
+          "type": "range",
+          "default": 60,
+          "min": 20,
+          "max": 160,
+          "step": 5,
+          "unit": "ms"
+        },
+        {
+          "key": "loop",
+          "label": "循环播放",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "cursor",
+          "label": "显示光标",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "stagger",
+      "index": 13,
+      "name": "错峰动画",
+      "en": "Stagger",
+      "tagline": "元素错峰入场，页面自然有了层次",
+      "description": "给同一组元素设置递增的延迟，让它们依次而不是同时出现。可以配合位移、透明度与模糊，是最容易复用的编排技巧。",
+      "category": "base",
+      "categoryLabel": "动画基础",
+      "tags": [
+        "顺序",
+        "入场",
+        "编排"
+      ],
+      "useCases": [
+        "导航菜单",
+        "列表加载",
+        "图标宫格",
+        "定价对比"
+      ],
+      "keywords": [
+        "错峰",
+        "依次",
+        "入场",
+        "顺序",
+        "延迟",
+        "列表",
+        "层次",
+        "编排",
+        "菜单",
+        "逐个",
+        "批量"
+      ],
+      "tip": "间隔 40–120ms。元素超过 10 个时改用分批入场，避免最后几个出现得太晚。",
+      "component": {
+        "export": "Stagger",
+        "path": "src/effects/Stagger.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "stagger",
+          "label": "间隔时间",
+          "type": "range",
+          "default": 90,
+          "min": 20,
+          "max": 320,
+          "step": 10,
+          "unit": "ms"
+        },
+        {
+          "key": "duration",
+          "label": "单项时长",
+          "type": "range",
+          "default": 500,
+          "min": 200,
+          "max": 900,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "distance",
+          "label": "位移距离",
+          "type": "range",
+          "default": 18,
+          "min": 4,
+          "max": 60,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "key": "direction",
+          "label": "入场方向",
+          "type": "select",
+          "default": "up",
+          "options": [
+            {
+              "label": "自下而上",
+              "value": "up"
+            },
+            {
+              "label": "自左而右",
+              "value": "left"
+            },
+            {
+              "label": "原地放大",
+              "value": "scale"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marquee",
+      "index": 14,
+      "name": "跑马灯",
+      "en": "Marquee",
+      "tagline": "内容水平循环，悬停即停不打断阅读",
+      "description": "复制一份内容并让轨道匀速平移，首尾无缝衔接；悬停时暂停，让用户可以停下来阅读。常用于公告、品牌墙和标签流。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "循环",
+        "水平滚动",
+        "悬停暂停"
+      ],
+      "useCases": [
+        "公告条",
+        "客户 Logo 墙",
+        "技能标签",
+        "活动信息"
+      ],
+      "keywords": [
+        "跑马灯",
+        "循环",
+        "水平",
+        "滚动",
+        "悬停暂停",
+        "公告",
+        "logo",
+        "标签",
+        "无缝",
+        "走马灯",
+        "横向"
+      ],
+      "tip": "复制的内容必须完全一致且无额外间距，首尾才能无缝衔接。副本用 aria-hidden 隐藏，键盘聚焦时也要暂停。",
+      "component": {
+        "export": "Marquee",
+        "path": "src/effects/Marquee.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "speed",
+          "label": "滚动周期",
+          "type": "range",
+          "default": 24,
+          "min": 8,
+          "max": 60,
+          "step": 1,
+          "unit": "s"
+        },
+        {
+          "key": "gap",
+          "label": "元素间距",
+          "type": "range",
+          "default": 20,
+          "min": 8,
+          "max": 48,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "key": "direction",
+          "label": "滚动方向",
+          "type": "select",
+          "default": "left",
+          "options": [
+            {
+              "label": "向左",
+              "value": "left"
+            },
+            {
+              "label": "向右",
+              "value": "right"
+            }
+          ]
+        },
+        {
+          "key": "pause",
+          "label": "悬停暂停",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "fade",
+          "label": "两侧渐隐",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "spring",
+      "index": 15,
+      "name": "弹性动画",
+      "en": "Spring",
+      "tagline": "到位后轻轻回弹，让动效拥有物理感",
+      "description": "用刚度、阻尼、质量三个参数驱动的弹簧模型替代固定时长动画：它会自然加速、越过目标、再收敛回来。拖动小球或点击施力，感受参数变化带来的手感差异。",
+      "category": "base",
+      "categoryLabel": "动画基础",
+      "tags": [
+        "弹簧",
+        "回弹",
+        "物理"
+      ],
+      "useCases": [
+        "拖拽交互",
+        "开关切换",
+        "弹窗入场",
+        "游戏化界面"
+      ],
+      "keywords": [
+        "弹性",
+        "弹簧",
+        "回弹",
+        "物理",
+        "阻尼",
+        "刚度",
+        "拖拽",
+        "抖动",
+        "Q弹",
+        "自然",
+        "惯性"
+      ],
+      "tip": "阻尼比 0.6–0.9 最接近真实手感。追求活泼可以降低阻尼，但别让界面长时间抖动。",
+      "component": {
+        "export": "Spring",
+        "path": "src/effects/Spring.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "stiffness",
+          "label": "刚度",
+          "type": "range",
+          "default": 170,
+          "min": 40,
+          "max": 400,
+          "step": 5
+        },
+        {
+          "key": "damping",
+          "label": "阻尼",
+          "type": "range",
+          "default": 14,
+          "min": 4,
+          "max": 40,
+          "step": 1
+        },
+        {
+          "key": "mass",
+          "label": "质量",
+          "type": "range",
+          "default": 1,
+          "min": 0.5,
+          "max": 4,
+          "step": 0.1
+        },
+        {
+          "key": "trail",
+          "label": "拖尾残影",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "easing",
+      "index": 16,
+      "name": "缓动效果",
+      "en": "Easing",
+      "tagline": "决定动画是否自然的那条曲线",
+      "description": "用三次贝塞尔曲线描述速度变化：控制点越陡，起步越快；y 轴越过 1 会产生回弹。拖动控制点或选择预设，观察同一个位移在不同曲线下的性格差异。",
+      "category": "base",
+      "categoryLabel": "动画基础",
+      "tags": [
+        "贝塞尔",
+        "速度",
+        "过渡"
+      ],
+      "useCases": [
+        "所有过渡动画",
+        "弹窗",
+        "页面切换",
+        "手势反馈"
+      ],
+      "keywords": [
+        "缓动",
+        "曲线",
+        "速度",
+        "贝塞尔",
+        "自然",
+        "过渡",
+        "动画",
+        "时间",
+        "节奏",
+        "ease",
+        "回弹"
+      ],
+      "tip": "入场用 ease-out，离场用 ease-in，双向过渡用 ease-in-out。高频操作别用超过 300ms 的动画。",
+      "component": {
+        "export": "Easing",
+        "path": "src/effects/Easing.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "preset",
+          "label": "缓动预设",
+          "type": "select",
+          "default": "expo",
+          "options": [
+            {
+              "label": "ease-out-expo",
+              "value": "expo"
+            },
+            {
+              "label": "ease-out",
+              "value": "ease-out"
+            },
+            {
+              "label": "ease-in-out",
+              "value": "ease-in-out"
+            },
+            {
+              "label": "ease-out-back",
+              "value": "back"
+            },
+            {
+              "label": "smooth",
+              "value": "smooth"
+            },
+            {
+              "label": "snap",
+              "value": "snap"
+            },
+            {
+              "label": "linear",
+              "value": "linear"
+            },
+            {
+              "label": "自定义",
+              "value": "custom"
+            }
+          ]
+        },
+        {
+          "key": "duration",
+          "label": "动画时长",
+          "type": "range",
+          "default": 900,
+          "min": 300,
+          "max": 1600,
+          "step": 50,
+          "unit": "ms"
+        },
+        {
+          "key": "x1",
+          "label": "控制点 1 · x",
+          "type": "range",
+          "default": 0.16,
+          "min": 0,
+          "max": 1,
+          "step": 0.01
+        },
+        {
+          "key": "y1",
+          "label": "控制点 1 · y",
+          "type": "range",
+          "default": 1,
+          "min": -0.5,
+          "max": 1.5,
+          "step": 0.01
+        },
+        {
+          "key": "x2",
+          "label": "控制点 2 · x",
+          "type": "range",
+          "default": 0.3,
+          "min": 0,
+          "max": 1,
+          "step": 0.01
+        },
+        {
+          "key": "y2",
+          "label": "控制点 2 · y",
+          "type": "range",
+          "default": 1,
+          "min": -0.5,
+          "max": 1.5,
+          "step": 0.01
+        }
+      ]
+    },
+    {
+      "id": "modalDialog",
+      "index": 17,
+      "name": "模态弹窗",
+      "en": "Modal Dialog",
+      "tagline": "先处理再继续，把注意力收拢到一个确认点上",
+      "description": "模态对话框用遮罩切断背景交互，把用户的选择收敛到标题、说明与操作按钮上。入场时从略微缩小的状态放大并淡入，危险操作再配合红色主按钮，既明确又不喧宾夺主。适合删除确认、登录授权等需要用户明确表态的场景。",
+      "category": "overlay",
+      "categoryLabel": "弹窗提示",
+      "tags": [
+        "模态",
+        "确认",
+        "遮罩"
+      ],
+      "useCases": [
+        "删除确认",
+        "登录注册",
+        "关键授权",
+        "支付确认"
+      ],
+      "keywords": [
+        "弹窗",
+        "模态",
+        "modal",
+        "dialog",
+        "确认",
+        "对话框",
+        "遮罩",
+        "删除",
+        "警告",
+        "提示框",
+        "确定",
+        "取消"
+      ],
+      "tip": "一个流程里只出现一个模态框，主操作放在右侧。遮罩点击是否关闭要看后果：危险操作建议不关闭，避免误触。",
+      "component": {
+        "export": "ModalDialog",
+        "path": "src/effects/ModalDialog.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "backdrop",
+          "label": "模糊遮罩",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "scale",
+          "label": "起始缩放",
+          "type": "range",
+          "default": 0.92,
+          "min": 0.8,
+          "max": 1.1,
+          "step": 0.01
+        },
+        {
+          "key": "duration",
+          "label": "入场时长",
+          "type": "range",
+          "default": 420,
+          "min": 200,
+          "max": 800,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "spring",
+          "label": "弹性回弹",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "toast",
+      "index": 18,
+      "name": "轻提示",
+      "en": "Toast",
+      "tagline": "结果反馈自己出现又自己离开，不打断手上的事",
+      "description": "Toast 是非阻断的结果反馈：从屏幕顶部或底部滑入，停留几秒后自动消失，不需要用户点掉。用不同颜色区分成功、错误与信息，用进度条暗示剩余时间，悬停时可以暂停计时，让用户来得及读完。",
+      "category": "overlay",
+      "categoryLabel": "弹窗提示",
+      "tags": [
+        "轻提示",
+        "反馈",
+        "自动消失"
+      ],
+      "useCases": [
+        "保存成功",
+        "复制反馈",
+        "网络异常",
+        "后台任务完成"
+      ],
+      "keywords": [
+        "toast",
+        "轻提示",
+        "提示",
+        "反馈",
+        "消息",
+        "自动消失",
+        "保存成功",
+        "复制成功",
+        "报错",
+        "snackbar",
+        "通知",
+        "弹窗"
+      ],
+      "tip": "一条 Toast 只说一件事，默认 2.5～3.5 秒。重要且必须看到的信息不要用 Toast，改用通知或模态框。",
+      "component": {
+        "export": "Toast",
+        "path": "src/effects/Toast.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "position",
+          "label": "出现位置",
+          "type": "select",
+          "default": "top",
+          "options": [
+            {
+              "label": "顶部",
+              "value": "top"
+            },
+            {
+              "label": "底部",
+              "value": "bottom"
+            }
+          ]
+        },
+        {
+          "key": "duration",
+          "label": "停留时长",
+          "type": "range",
+          "default": 2800,
+          "min": 1500,
+          "max": 5000,
+          "step": 100,
+          "unit": "ms"
+        },
+        {
+          "key": "variant",
+          "label": "视觉样式",
+          "type": "select",
+          "default": "glass",
+          "options": [
+            {
+              "label": "毛玻璃",
+              "value": "glass"
+            },
+            {
+              "label": "实色",
+              "value": "solid"
+            }
+          ]
+        },
+        {
+          "key": "pause",
+          "label": "悬停暂停",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "drawer",
+      "index": 19,
+      "name": "抽屉面板",
+      "en": "Drawer",
+      "tagline": "从侧边滑出详情，原页面上下文还在眼前",
+      "description": "抽屉从屏幕左/右边缘滑入，用一块次级面板承载详情或筛选，而不像模态框那样完全遮住页面。它保留上下文，适合后台列表的查看详情、设置项编辑等「看完就关」的中等重量任务。",
+      "category": "overlay",
+      "categoryLabel": "弹窗提示",
+      "tags": [
+        "抽屉",
+        "侧滑",
+        "详情"
+      ],
+      "useCases": [
+        "订单详情",
+        "筛选面板",
+        "设置编辑",
+        "任务面板"
+      ],
+      "keywords": [
+        "抽屉",
+        "drawer",
+        "侧边",
+        "滑出",
+        "详情",
+        "面板",
+        "筛选",
+        "侧滑",
+        "弹层",
+        "弹窗",
+        "查看"
+      ],
+      "tip": "宽度控制在 360–480px，内容超过一屏时让面板内部滚动。移动端改用底部面板更符合拇指操作。",
+      "component": {
+        "export": "Drawer",
+        "path": "src/effects/Drawer.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "side",
+          "label": "滑出方向",
+          "type": "select",
+          "default": "right",
+          "options": [
+            {
+              "label": "从右侧",
+              "value": "right"
+            },
+            {
+              "label": "从左侧",
+              "value": "left"
+            }
+          ]
+        },
+        {
+          "key": "width",
+          "label": "面板宽度",
+          "type": "range",
+          "default": 420,
+          "min": 320,
+          "max": 560,
+          "step": 10,
+          "unit": "px"
+        },
+        {
+          "key": "backdrop",
+          "label": "背景遮罩",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "duration",
+          "label": "滑出时长",
+          "type": "range",
+          "default": 420,
+          "min": 200,
+          "max": 700,
+          "step": 20,
+          "unit": "ms"
+        }
+      ]
+    },
+    {
+      "id": "popover",
+      "index": 20,
+      "name": "气泡浮层",
+      "en": "Popover",
+      "tagline": "贴着触发元素展开，比对话框轻、比文字提示重",
+      "description": "气泡浮层依附在按钮或头像附近出现，可承载补充说明与少量操作，不阻断全局操作。悬停触发、只显示文字的是 Tooltip；点击触发、带按钮和表单的才是 Popover。选对触发方式，浮层才不会挡住用户正在做的事。",
+      "category": "overlay",
+      "categoryLabel": "弹窗提示",
+      "tags": [
+        "气泡",
+        "浮层",
+        "锚点"
+      ],
+      "useCases": [
+        "头像菜单",
+        "筛选面板",
+        "图标说明",
+        "快捷操作"
+      ],
+      "keywords": [
+        "气泡",
+        "浮层",
+        "popover",
+        "tooltip",
+        "提示",
+        "锚点",
+        "悬停",
+        "点击",
+        "下拉",
+        "菜单",
+        "弹窗",
+        "文字提示"
+      ],
+      "tip": "浮层要避开视口边缘，必要时自动翻转方向。Tooltip 只放一句说明，别在里面塞按钮。",
+      "component": {
+        "export": "Popover",
+        "path": "src/effects/Popover.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "trigger",
+          "label": "触发方式",
+          "type": "select",
+          "default": "click",
+          "options": [
+            {
+              "label": "点击展开",
+              "value": "click"
+            },
+            {
+              "label": "悬停展开",
+              "value": "hover"
+            }
+          ]
+        },
+        {
+          "key": "placement",
+          "label": "展开方向",
+          "type": "select",
+          "default": "bottom",
+          "options": [
+            {
+              "label": "向下",
+              "value": "bottom"
+            },
+            {
+              "label": "向上",
+              "value": "top"
+            }
+          ]
+        },
+        {
+          "key": "arrow",
+          "label": "显示箭头",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "width",
+          "label": "浮层宽度",
+          "type": "range",
+          "default": 240,
+          "min": 200,
+          "max": 320,
+          "step": 10,
+          "unit": "px"
+        }
+      ]
+    },
+    {
+      "id": "bottomSheet",
+      "index": 21,
+      "name": "底部面板",
+      "en": "Bottom Sheet",
+      "tagline": "从屏幕底部升起，把操作放到拇指够得到的地方",
+      "description": "底部面板是移动端的抽屉：从下往上滑出，承载筛选、分享、操作菜单等任务。顶部把手暗示它可以下拉关闭，高度可以停在半屏；与桌面端的侧边抽屉相比，它更符合单手操作的拇指热区。",
+      "category": "overlay",
+      "categoryLabel": "弹窗提示",
+      "tags": [
+        "底部面板",
+        "移动端",
+        "手势"
+      ],
+      "useCases": [
+        "筛选条件",
+        "分享菜单",
+        "操作选择",
+        "移动端表单"
+      ],
+      "keywords": [
+        "底部",
+        "面板",
+        "bottom sheet",
+        "抽屉",
+        "手势",
+        "下滑",
+        "关闭",
+        "移动端",
+        "筛选",
+        "弹窗",
+        "半屏"
+      ],
+      "tip": "一定要提供明确的关闭方式（把手下滑、× 按钮或遮罩点击）。内容很多时先停靠半屏，再允许用户继续上拉。",
+      "component": {
+        "export": "BottomSheet",
+        "path": "src/effects/BottomSheet.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "height",
+          "label": "面板高度",
+          "type": "range",
+          "default": 62,
+          "min": 40,
+          "max": 85,
+          "step": 1,
+          "unit": "%"
+        },
+        {
+          "key": "backdrop",
+          "label": "背景遮罩",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "drag",
+          "label": "下滑关闭",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "radius",
+          "label": "顶部圆角",
+          "type": "range",
+          "default": 22,
+          "min": 12,
+          "max": 32,
+          "step": 1,
+          "unit": "px"
+        }
+      ]
+    },
+    {
+      "id": "notification",
+      "index": 22,
+      "name": "通知卡片",
+      "en": "Notification",
+      "tagline": "比 Toast 更完整，把需要稍后处理的消息留给你",
+      "description": "通知从角落滑入，可以带标题、正文和操作入口，比只反馈结果的 Toast 更重，又比阻断操作的模态框更轻。多条通知自动堆叠、到时移除，进度条会把剩余时间明确地展示出来，适合后台任务完成、协作消息等场景。",
+      "category": "overlay",
+      "categoryLabel": "弹窗提示",
+      "tags": [
+        "通知",
+        "消息",
+        "堆叠"
+      ],
+      "useCases": [
+        "任务完成",
+        "协作提醒",
+        "系统公告",
+        "异步结果"
+      ],
+      "keywords": [
+        "通知",
+        "消息",
+        "notification",
+        "提醒",
+        "卡片",
+        "右上角",
+        "进度条",
+        "公告",
+        "堆叠",
+        "提示",
+        "弹窗"
+      ],
+      "tip": "通知不要超过 3 条同屏，正文控制在两行内。需要用户立刻处理的消息请改用模态弹窗。",
+      "component": {
+        "export": "Notification",
+        "path": "src/effects/Notification.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "position",
+          "label": "出现位置",
+          "type": "select",
+          "default": "topRight",
+          "options": [
+            {
+              "label": "右上角",
+              "value": "topRight"
+            },
+            {
+              "label": "顶部居中",
+              "value": "topCenter"
+            }
+          ]
+        },
+        {
+          "key": "duration",
+          "label": "存活时间",
+          "type": "range",
+          "default": 3600,
+          "min": 2000,
+          "max": 6000,
+          "step": 200,
+          "unit": "ms"
+        },
+        {
+          "key": "progress",
+          "label": "倒计时进度",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "accent",
+          "label": "强调色",
+          "type": "color",
+          "default": "#3b82f6"
+        }
+      ]
+    },
+    {
+      "id": "liquidGlass",
+      "index": 23,
+      "name": "液态玻璃",
+      "en": "Liquid Glass",
+      "tagline": "会折射光、会呼吸的玻璃，让界面拥有真实的材质感",
+      "description": "液态玻璃在毛玻璃的基础上叠加折射、焦散和镜面高光：底层色彩被扭出流动的光学形变，边缘出现细亮的轮廓光，指针位置的改变会让高光跟着移动。它是 Apple 系统界面里最具辨识度的材质语言，适合强调层级与焦点的核心卡片、导航栏和控件。",
+      "category": "glass",
+      "categoryLabel": "液态玻璃",
+      "tags": [
+        "液态玻璃",
+        "折射",
+        "材质"
+      ],
+      "useCases": [
+        "核心功能卡片",
+        "悬浮导航",
+        "播放器控件",
+        "系统级弹层"
+      ],
+      "keywords": [
+        "液态玻璃",
+        "玻璃",
+        "毛玻璃",
+        "glass",
+        "glassmorphism",
+        "折射",
+        "高光",
+        "焦散",
+        "苹果",
+        "ios",
+        "材质",
+        "半透明",
+        "模糊",
+        "backdrop"
+      ],
+      "tip": "折射强度控制在 10–20 之间，过大会让文字难以阅读。真实设备 Safari 支持最佳，Chromium 需保留纯模糊降级路径。",
+      "component": {
+        "export": "LiquidGlass",
+        "path": "src/effects/LiquidGlass.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "blur",
+          "label": "背景模糊",
+          "type": "range",
+          "default": 12,
+          "min": 0,
+          "max": 24,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "saturation",
+          "label": "色彩饱和",
+          "type": "range",
+          "default": 170,
+          "min": 100,
+          "max": 220,
+          "step": 5,
+          "unit": "%"
+        },
+        {
+          "key": "refraction",
+          "label": "液态折射",
+          "type": "range",
+          "default": 14,
+          "min": 0,
+          "max": 30,
+          "step": 1
+        },
+        {
+          "key": "tint",
+          "label": "玻璃染色",
+          "type": "color",
+          "default": "#93c5fd"
+        },
+        {
+          "key": "radius",
+          "label": "圆角",
+          "type": "range",
+          "default": 26,
+          "min": 12,
+          "max": 40,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "glow",
+          "label": "边缘辉光",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "paperPlane",
+      "index": 24,
+      "name": "纸飞机发送",
+      "en": "Paper Plane Send",
+      "tagline": "按钮轻压，纸飞机飞出，发送状态在原位交代清楚",
+      "description": "分享类按钮不要只切换文字：按下时先给一个轻微压缩，纸飞机带着弧线从按钮里飞出，按钮进入「发送中」，落地后落定成「已分享」。动作有起点、有去向、有结果，用户的眼睛始终跟得上。",
+      "category": "component",
+      "categoryLabel": "组件交互",
+      "tags": [
+        "发送反馈",
+        "纸飞机",
+        "状态切换"
+      ],
+      "useCases": [
+        "分享行程",
+        "发布内容",
+        "发送消息",
+        "提交表单"
+      ],
+      "keywords": [
+        "纸飞机",
+        "发送",
+        "分享",
+        "提交",
+        "按钮",
+        "状态",
+        "发送中",
+        "已分享",
+        "行程",
+        "飞出",
+        "反馈",
+        "提示词"
+      ],
+      "tip": "飞行时长控制在 600–800ms。发送结果必须回到原按钮上，不要只靠远处 Toast 交代。",
+      "component": {
+        "export": "PaperPlane",
+        "path": "src/effects/PaperPlane.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "pressScale",
+          "label": "按下缩放",
+          "type": "range",
+          "default": 0.94,
+          "min": 0.88,
+          "max": 0.98,
+          "step": 0.01
+        },
+        {
+          "key": "flight",
+          "label": "飞行时长",
+          "type": "range",
+          "default": 720,
+          "min": 400,
+          "max": 1000,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "arc",
+          "label": "弧线高度",
+          "type": "range",
+          "default": 100,
+          "min": 40,
+          "max": 160,
+          "step": 10,
+          "unit": "px"
+        },
+        {
+          "key": "trail",
+          "label": "飞行尾迹",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "longPressMenu",
+      "index": 25,
+      "name": "长按快捷菜单",
+      "en": "Long Press Menu",
+      "tagline": "按住才浮起，快捷操作从卡片周围长出来",
+      "description": "长按不是「点得久一点的点击」，而是一段明确的意图确认：按住超过阈值，卡片浮起、阴影加深，快捷操作错峰展开；提前松手就取消。选完操作后菜单收起、卡片归位，空间关系始终清楚。",
+      "category": "component",
+      "categoryLabel": "组件交互",
+      "tags": [
+        "长按",
+        "快捷操作",
+        "浮起"
+      ],
+      "useCases": [
+        "内容卡片",
+        "图片操作",
+        "文件管理",
+        "移动端菜单"
+      ],
+      "keywords": [
+        "长按",
+        "快捷菜单",
+        "菜单",
+        "浮起",
+        "卡片",
+        "操作",
+        "编辑",
+        "复制",
+        "删除",
+        "手势",
+        "提示词"
+      ],
+      "tip": "长按阈值建议 500ms 左右，太短会误触、太长让人以为没反应；操作项不要超过 4 个。",
+      "component": {
+        "export": "LongPressMenu",
+        "path": "src/effects/LongPressMenu.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "threshold",
+          "label": "长按判定",
+          "type": "range",
+          "default": 520,
+          "min": 300,
+          "max": 900,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "lift",
+          "label": "浮起高度",
+          "type": "range",
+          "default": 10,
+          "min": 4,
+          "max": 16,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "scale",
+          "label": "浮起放大",
+          "type": "range",
+          "default": 1.06,
+          "min": 1.02,
+          "max": 1.12,
+          "step": 0.01
+        },
+        {
+          "key": "blur",
+          "label": "背景压暗",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "accordion",
+      "index": 26,
+      "name": "手风琴问答",
+      "en": "Accordion",
+      "tagline": "答案推开下方内容，打开新的一项就收起旧的",
+      "description": "手风琴列表用高度过渡把「展开」做成一次有方向的推移：问题行保持不动，答案从 0 高度长出来并把下面的内容顶开。手风琴模式下始终只留一个答案，让读者的视线不用在多个开放区块之间来回跳。",
+      "category": "component",
+      "categoryLabel": "组件交互",
+      "tags": [
+        "手风琴",
+        "问答",
+        "展开"
+      ],
+      "useCases": [
+        "FAQ 问答",
+        "设置分组",
+        "详情折叠",
+        "帮助中心"
+      ],
+      "keywords": [
+        "手风琴",
+        "问答",
+        "FAQ",
+        "折叠",
+        "展开",
+        "列表",
+        "答案",
+        "问题",
+        "收起",
+        "提示词"
+      ],
+      "tip": "只动 grid-template-rows 或 max-height，不要改具体像素高度；内容多的答案要允许内部滚动。",
+      "component": {
+        "export": "Accordion",
+        "path": "src/effects/Accordion.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "duration",
+          "label": "展开时长",
+          "type": "range",
+          "default": 380,
+          "min": 200,
+          "max": 600,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "easing",
+          "label": "缓动曲线",
+          "type": "select",
+          "default": "smooth",
+          "options": [
+            {
+              "label": "平滑",
+              "value": "smooth"
+            },
+            {
+              "label": "弹性",
+              "value": "spring"
+            }
+          ]
+        },
+        {
+          "key": "single",
+          "label": "只开一项",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "icon",
+          "label": "图标样式",
+          "type": "select",
+          "default": "plus",
+          "options": [
+            {
+              "label": "加号",
+              "value": "plus"
+            },
+            {
+              "label": "箭头",
+              "value": "chevron"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "multiSelectBar",
+      "index": 27,
+      "name": "多选操作栏",
+      "en": "Multi Select Bar",
+      "tagline": "选中即浮出操作栏，数量与选择状态始终同步",
+      "description": "多选态不需要额外的入口说明：第一项被选中的瞬间，底部操作栏滑入并显示已选数量；每次选择变化都同步刷新数字；全部取消后操作栏原路收回。勾选动画与计数联动，让用户确认「我选了什么」。",
+      "category": "component",
+      "categoryLabel": "组件交互",
+      "tags": [
+        "多选",
+        "操作栏",
+        "勾选"
+      ],
+      "useCases": [
+        "文件管理",
+        "任务批量处理",
+        "消息清理",
+        "相册选图"
+      ],
+      "keywords": [
+        "多选",
+        "操作栏",
+        "勾选",
+        "批量",
+        "已选",
+        "全选",
+        "删除",
+        "移动",
+        "列表",
+        "提示词"
+      ],
+      "tip": "操作栏不要超过 3 个主操作；数量变化要有明确反馈，避免用户怀疑是否点中。",
+      "component": {
+        "export": "MultiSelectBar",
+        "path": "src/effects/MultiSelectBar.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "accent",
+          "label": "强调色",
+          "type": "color",
+          "default": "#3b82f6"
+        },
+        {
+          "key": "barHeight",
+          "label": "操作栏高度",
+          "type": "range",
+          "default": 60,
+          "min": 48,
+          "max": 80,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "key": "anim",
+          "label": "出现方式",
+          "type": "select",
+          "default": "slide",
+          "options": [
+            {
+              "label": "平滑滑入",
+              "value": "slide"
+            },
+            {
+              "label": "弹性滑入",
+              "value": "spring"
+            }
+          ]
+        },
+        {
+          "key": "selectAll",
+          "label": "显示全选",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "numberStepper",
+      "index": 28,
+      "name": "数量步进器",
+      "en": "Number Stepper",
+      "tagline": "数字纵向滚动，按钮轻弹，数量不会跌破下限",
+      "description": "步进器的重点是「数字真的在滚动」：旧数字向上滑出、新数字从下方进入，按钮轻微回弹确认点击，金额与数量同步更新。减到下限后按钮禁用，不让用户点到没有结果的地方。",
+      "category": "component",
+      "categoryLabel": "组件交互",
+      "tags": [
+        "步进器",
+        "数字滚动",
+        "回弹"
+      ],
+      "useCases": [
+        "购物车数量",
+        "票数选择",
+        "人数配置",
+        "规格数量"
+      ],
+      "keywords": [
+        "步进器",
+        "数量",
+        "加减",
+        "数字滚动",
+        "回弹",
+        "购物车",
+        "最小值",
+        "不能小于零",
+        "提示词"
+      ],
+      "tip": "数字滚动容器要有固定高度并 overflow hidden，不然会出现上下数字同时露出的穿帮。",
+      "component": {
+        "export": "NumberStepper",
+        "path": "src/effects/NumberStepper.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "bounce",
+          "label": "按钮回弹",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "digitHeight",
+          "label": "数字行高",
+          "type": "range",
+          "default": 34,
+          "min": 24,
+          "max": 48,
+          "step": 2,
+          "unit": "px"
+        },
+        {
+          "key": "duration",
+          "label": "滚动时长",
+          "type": "range",
+          "default": 360,
+          "min": 200,
+          "max": 600,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "min",
+          "label": "最小值",
+          "type": "range",
+          "default": 0,
+          "min": 0,
+          "max": 5,
+          "step": 1
+        }
+      ]
+    },
+    {
+      "id": "cardFlip",
+      "index": 29,
+      "name": "卡片翻面",
+      "en": "Card Flip",
+      "tagline": "沿竖轴翻到背面，中途不会看到镜像文字",
+      "description": "翻面卡用 3D 旋转把正反两面讲成一个连续动作：正面转过 90° 后交给背面，两面都设置 backface-visibility: hidden，背面文字始终正向。它适合会员凭证、支付方式、答案卡这类「一张卡两层信息」的场景。",
+      "category": "component",
+      "categoryLabel": "组件交互",
+      "tags": [
+        "翻面",
+        "3D",
+        "凭证"
+      ],
+      "useCases": [
+        "会员凭证",
+        "支付卡",
+        "答案卡",
+        "双语信息卡"
+      ],
+      "keywords": [
+        "翻面",
+        "翻转",
+        "卡片",
+        "3D",
+        "旋转",
+        "正面",
+        "背面",
+        "镜像",
+        "凭证",
+        "提示词"
+      ],
+      "tip": "一定要给两面加 backface-visibility: hidden，并在 90° 前后切换可见面，否则会看到反字穿帮。",
+      "component": {
+        "export": "CardFlip",
+        "path": "src/effects/CardFlip.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "duration",
+          "label": "翻转时长",
+          "type": "range",
+          "default": 700,
+          "min": 400,
+          "max": 1000,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "perspective",
+          "label": "透视距离",
+          "type": "range",
+          "default": 1000,
+          "min": 600,
+          "max": 1400,
+          "step": 50,
+          "unit": "px"
+        },
+        {
+          "key": "axis",
+          "label": "翻转轴",
+          "type": "select",
+          "default": "y",
+          "options": [
+            {
+              "label": "竖轴 Y",
+              "value": "y"
+            },
+            {
+              "label": "横轴 X",
+              "value": "x"
+            }
+          ]
+        },
+        {
+          "key": "shadow",
+          "label": "翻转投影",
+          "type": "switch",
+          "default": true
+        }
+      ]
+    },
+    {
+      "id": "searchFilter",
+      "index": 30,
+      "name": "搜索筛选标签",
+      "en": "Search Filter Tabs",
+      "tagline": "选中底色滑到新标签，结果先淡出再依次落位",
+      "description": "筛选切换不是整页刷新：胶囊底色从旧标签滑到新标签，结果列表先整体淡出，再按短间隔依次进入。用户的视线能跟住「我点了哪里」和「内容从哪里换掉」，列表就不会显得突然跳变。",
+      "category": "component",
+      "categoryLabel": "组件交互",
+      "tags": [
+        "筛选标签",
+        "胶囊指示",
+        "列表切换"
+      ],
+      "useCases": [
+        "搜索结果",
+        "内容分类",
+        "商品筛选",
+        "作品集过滤"
+      ],
+      "keywords": [
+        "筛选",
+        "标签",
+        "搜索",
+        "胶囊",
+        "指示器",
+        "淡出",
+        "依次",
+        "结果",
+        "列表",
+        "提示词"
+      ],
+      "tip": "切列表时先淡出再淡入，间隔别超过 100ms；否则用户会觉得内容来得拖沓。",
+      "component": {
+        "export": "SearchFilter",
+        "path": "src/effects/SearchFilter.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "indicator",
+          "label": "指示动画",
+          "type": "select",
+          "default": "spring",
+          "options": [
+            {
+              "label": "平滑滑动",
+              "value": "slide"
+            },
+            {
+              "label": "弹性滑动",
+              "value": "spring"
+            }
+          ]
+        },
+        {
+          "key": "fade",
+          "label": "淡出时长",
+          "type": "range",
+          "default": 260,
+          "min": 150,
+          "max": 500,
+          "step": 10,
+          "unit": "ms"
+        },
+        {
+          "key": "stagger",
+          "label": "逐项间隔",
+          "type": "range",
+          "default": 80,
+          "min": 40,
+          "max": 140,
+          "step": 10,
+          "unit": "ms"
+        },
+        {
+          "key": "accent",
+          "label": "强调色",
+          "type": "color",
+          "default": "#3b82f6"
+        }
+      ]
+    },
+    {
+      "id": "stepProgress",
+      "index": 31,
+      "name": "步骤进度条",
+      "en": "Step Progress",
+      "tagline": "圆点变对勾、连接线逐段填充，下一步自己亮起来",
+      "description": "步骤条把「走到哪一步」画成一条会生长的路径：完成当前步骤时圆点缩一下并换成对勾，连接线按固定时长从左到右填满，下一步圆点放大高亮、说明文字同步更新。每个视觉变化都指向同一个事实。",
+      "category": "component",
+      "categoryLabel": "组件交互",
+      "tags": [
+        "步骤条",
+        "进度",
+        "对勾"
+      ],
+      "useCases": [
+        "注册流程",
+        "支付流程",
+        "表单向导",
+        "安装引导"
+      ],
+      "keywords": [
+        "步骤",
+        "进度条",
+        "对勾",
+        "圆点",
+        "连接线",
+        "填充",
+        "完成",
+        "下一步",
+        "向导",
+        "提示词"
+      ],
+      "tip": "不要让连接线提前填满：必须等当前步骤确认完成后才开始，否则进度会「说谎」。",
+      "component": {
+        "export": "StepProgress",
+        "path": "src/effects/StepProgress.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "fill",
+          "label": "连线填充",
+          "type": "range",
+          "default": 520,
+          "min": 300,
+          "max": 800,
+          "step": 20,
+          "unit": "ms"
+        },
+        {
+          "key": "check",
+          "label": "笔画对勾",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "style",
+          "label": "材质样式",
+          "type": "select",
+          "default": "solid",
+          "options": [
+            {
+              "label": "实色",
+              "value": "solid"
+            },
+            {
+              "label": "玻璃",
+              "value": "glass"
+            }
+          ]
+        },
+        {
+          "key": "accent",
+          "label": "强调色",
+          "type": "color",
+          "default": "#3b82f6"
+        }
+      ]
+    },
+    {
+      "id": "glassTabBar",
+      "index": 32,
+      "name": "玻璃标签栏",
+      "en": "Glass Tab Bar",
+      "tagline": "胶囊指示器按速度拉长压扁，落位时轻轻过冲弹回",
+      "description": "液态玻璃标签栏的灵魂是那枚跟随指尖的玻璃胶囊：滑动时沿运动方向拉长、垂直方向压扁，停住时按弹簧参数过冲再回弹；图标在胶囊下方被放大。它不是「一个块跳到另一格」，而是一滴有惯性的玻璃。",
+      "category": "glass",
+      "categoryLabel": "液态玻璃",
+      "tags": [
+        "液态玻璃",
+        "标签栏",
+        "弹簧"
+      ],
+      "useCases": [
+        "底部导航",
+        "分段控制",
+        "选择器",
+        "工具栏"
+      ],
+      "keywords": [
+        "玻璃标签栏",
+        "液态玻璃",
+        "胶囊",
+        "指示器",
+        "弹簧",
+        "拉长",
+        "压扁",
+        "过冲",
+        "tab",
+        "导航",
+        "提示词"
+      ],
+      "tip": "弹簧刚度 300、阻尼比 0.5 手感最接近系统原生；拉长系数别超过 1.8，否则像橡皮筋。",
+      "component": {
+        "export": "GlassTabBar",
+        "path": "src/effects/GlassTabBar.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "stiffness",
+          "label": "弹簧刚度",
+          "type": "range",
+          "default": 300,
+          "min": 180,
+          "max": 420,
+          "step": 10
+        },
+        {
+          "key": "damping",
+          "label": "阻尼比",
+          "type": "range",
+          "default": 0.5,
+          "min": 0.3,
+          "max": 0.8,
+          "step": 0.05
+        },
+        {
+          "key": "stretch",
+          "label": "拉长系数",
+          "type": "range",
+          "default": 1.4,
+          "min": 1.1,
+          "max": 1.8,
+          "step": 0.05
+        },
+        {
+          "key": "blur",
+          "label": "玻璃模糊",
+          "type": "range",
+          "default": 10,
+          "min": 4,
+          "max": 20,
+          "step": 1,
+          "unit": "px"
+        }
+      ]
+    },
+    {
+      "id": "glassToggle",
+      "index": 33,
+      "name": "果冻开关",
+      "en": "Jelly Toggle",
+      "tagline": "磨砂旋钮按下变玻璃珠，横纵两轴不同阻尼出果冻感",
+      "description": "开关静止时是白色磨砂，按下瞬间变成透明的玻璃珠；切换时横向与纵向用不同阻尼回弹，出现果冻般的挤压感，轨道填充同步跟上。一个小小的开关，也能有材质与性格。",
+      "category": "glass",
+      "categoryLabel": "液态玻璃",
+      "tags": [
+        "液态玻璃",
+        "开关",
+        "果冻"
+      ],
+      "useCases": [
+        "设置开关",
+        "功能启用",
+        "专注模式",
+        "偏好切换"
+      ],
+      "keywords": [
+        "果冻开关",
+        "开关",
+        "液态玻璃",
+        "toggle",
+        "磨砂",
+        "玻璃珠",
+        "阻尼",
+        "挤压",
+        "提示词"
+      ],
+      "tip": "果冻形变只在按下与切换瞬间出现，静止时必须回到规整的圆形，不然会显得失控。",
+      "component": {
+        "export": "GlassToggle",
+        "path": "src/effects/GlassToggle.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "jelly",
+          "label": "果冻形变",
+          "type": "switch",
+          "default": true
+        },
+        {
+          "key": "aniso",
+          "label": "两轴差异",
+          "type": "range",
+          "default": 0.45,
+          "min": 0.2,
+          "max": 0.8,
+          "step": 0.05
+        },
+        {
+          "key": "blur",
+          "label": "磨砂强度",
+          "type": "range",
+          "default": 8,
+          "min": 2,
+          "max": 16,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "tint",
+          "label": "旋钮染色",
+          "type": "color",
+          "default": "#ffffff"
+        }
+      ]
+    },
+    {
+      "id": "glassSlider",
+      "index": 34,
+      "name": "放大镜滑块",
+      "en": "Magnifier Slider",
+      "tagline": "拖动时旋钮放大成透镜，轨道、数值、填充三者同步",
+      "description": "滑块被按住时，圆钮放大成放大镜，透过它能看清下方的轨道与刻度；轨道填充、旋钮位置、数值显示用同一套节奏同步变化，松手恢复原大小。同步是「顺滑」和「松垮」的分界线。",
+      "category": "glass",
+      "categoryLabel": "液态玻璃",
+      "tags": [
+        "液态玻璃",
+        "滑块",
+        "放大镜"
+      ],
+      "useCases": [
+        "音量亮度",
+        "价格区间",
+        "进度调节",
+        "参数面板"
+      ],
+      "keywords": [
+        "放大镜",
+        "滑块",
+        "液态玻璃",
+        "拖动",
+        "数值同步",
+        "刻度",
+        "吸附",
+        "提示词"
+      ],
+      "tip": "放大倍数 1.6–2.0 最自然；轨道填充、滑块位置、数字三者必须同一时长，不能各走各的。",
+      "component": {
+        "export": "GlassSlider",
+        "path": "src/effects/GlassSlider.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "magnify",
+          "label": "放大倍数",
+          "type": "range",
+          "default": 1.9,
+          "min": 1.2,
+          "max": 2.2,
+          "step": 0.1
+        },
+        {
+          "key": "blur",
+          "label": "透镜模糊",
+          "type": "range",
+          "default": 8,
+          "min": 2,
+          "max": 16,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "snap",
+          "label": "整数吸附",
+          "type": "switch",
+          "default": false
+        },
+        {
+          "key": "accent",
+          "label": "轨道强调色",
+          "type": "color",
+          "default": "#3b82f6"
+        }
+      ]
+    },
+    {
+      "id": "glassCard",
+      "index": 35,
+      "name": "跟随折射卡片",
+      "en": "Refraction Card",
+      "tagline": "拖到哪儿，背后的光就在哪儿弯折",
+      "description": "真正的液态玻璃不是「把背景模糊」，而是把背景弯折：中心几乎不变，越靠边缘越像凸透镜；边缘分出红蓝彩边，颜色来自背景本身，外圈用 1–2px 细白边收住形状，内部只保留极轻的模糊。拖动卡片时，这团光学形变跟着走。",
+      "category": "glass",
+      "categoryLabel": "液态玻璃",
+      "tags": [
+        "液态玻璃",
+        "真折射",
+        "色散"
+      ],
+      "useCases": [
+        "悬浮卡片",
+        "玻璃面板",
+        "播放器控件",
+        "系统弹层"
+      ],
+      "keywords": [
+        "真折射",
+        "色散",
+        "彩边",
+        "细白边",
+        "液态玻璃",
+        "拖动",
+        "凸透镜",
+        "玻璃卡片",
+        "提示词"
+      ],
+      "tip": "同屏玻璃不要超过 5 块；像素参数按 min(devicePixelRatio, 2) 封顶，否则移动端会掉帧。",
+      "component": {
+        "export": "GlassCard",
+        "path": "src/effects/GlassCard.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "refraction",
+          "label": "折射强度",
+          "type": "range",
+          "default": 24,
+          "min": 0,
+          "max": 40,
+          "step": 1
+        },
+        {
+          "key": "chromatic",
+          "label": "色散像素",
+          "type": "range",
+          "default": 8,
+          "min": 0,
+          "max": 16,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "blur",
+          "label": "内部模糊",
+          "type": "range",
+          "default": 2,
+          "min": 0,
+          "max": 12,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "edge",
+          "label": "细白边",
+          "type": "range",
+          "default": 2,
+          "min": 1,
+          "max": 3,
+          "step": 0.5,
+          "unit": "px"
+        }
+      ]
+    },
+    {
+      "id": "borderFlow",
+      "index": 36,
+      "name": "多色渐变流光",
+      "en": "Multi-color Flow",
+      "tagline": "四色首尾相接，光沿着整套色环滚动",
+      "description": "用 conic-gradient 把 3–4 个颜色首尾相接铺满一整圈，再让 @property 注册的角度变量持续旋转，卡片只保留 padding 让出的那一圈描边。颜色越多越接近「极光」，适合需要明确强调「新品 / 限量 / 主推」的卡片。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "边框",
+        "多色",
+        "流光"
+      ],
+      "useCases": [
+        "新品发布卡",
+        "会员权益页",
+        "大促主推位",
+        "潮流与音乐产品"
+      ],
+      "keywords": [
+        "多色",
+        "渐变",
+        "流光",
+        "彩虹",
+        "极光",
+        "边框",
+        "旋转",
+        "强调",
+        "炫彩",
+        "循环",
+        "高级",
+        "渐变边框"
+      ],
+      "tip": "颜色不要超过 4 个，且首尾必须回到同一个颜色，否则衔接处会出现一道硬边。",
+      "component": {
+        "export": "BorderFlow",
+        "path": "src/effects/BorderFlow.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "speed",
+          "label": "旋转周期",
+          "type": "range",
+          "default": 6,
+          "min": 3,
+          "max": 14,
+          "step": 0.5,
+          "unit": "s"
+        },
+        {
+          "key": "thickness",
+          "label": "描边粗细",
+          "type": "range",
+          "default": 1.5,
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "unit": "px"
+        },
+        {
+          "key": "radius",
+          "label": "圆角",
+          "type": "range",
+          "default": 20,
+          "min": 8,
+          "max": 32,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "color1",
+          "label": "色 1",
+          "type": "color",
+          "default": "#3b82f6"
+        },
+        {
+          "key": "color2",
+          "label": "色 2",
+          "type": "color",
+          "default": "#22d3ee"
+        },
+        {
+          "key": "color3",
+          "label": "色 3",
+          "type": "color",
+          "default": "#34d399"
+        },
+        {
+          "key": "color4",
+          "label": "色 4",
+          "type": "color",
+          "default": "#f472b6"
+        },
+        {
+          "key": "glow",
+          "label": "外发光",
+          "type": "range",
+          "default": 0.55,
+          "min": 0,
+          "max": 1,
+          "step": 0.05,
+          "unit": ""
+        }
+      ]
+    },
+    {
+      "id": "borderNeon",
+      "index": 37,
+      "name": "局部霓虹描边",
+      "en": "Local Neon Stroke",
+      "tagline": "只亮一小段弧，暗线拖出霓虹的余味",
+      "description": "把 conic-gradient 的绝大部分设为透明，只在一段约 60° 的弧上放亮色和一点白色高光核心，再叠一层模糊的同款渐变做辉光。它区别于整圈流光的地方是「克制」：像霓虹灯管的一截，不抢内容，但足够抓眼。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "边框",
+        "霓虹",
+        "局部"
+      ],
+      "useCases": [
+        "夜间模式产品",
+        "游戏与电竞",
+        "音乐 App",
+        "赛博风落地页"
+      ],
+      "keywords": [
+        "霓虹",
+        "局部",
+        "描边",
+        "边框",
+        "发光",
+        "赛博",
+        "夜间",
+        "克制",
+        "灯管",
+        "强调",
+        "一圈",
+        "光弧"
+      ],
+      "tip": "亮段长度控制在 45°–75°：太长会退回普通流光，太短则像描边上沾了一块脏东西。",
+      "component": {
+        "export": "BorderNeon",
+        "path": "src/effects/BorderNeon.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "speed",
+          "label": "循环周期",
+          "type": "range",
+          "default": 5,
+          "min": 2,
+          "max": 12,
+          "step": 0.5,
+          "unit": "s"
+        },
+        {
+          "key": "thickness",
+          "label": "描边粗细",
+          "type": "range",
+          "default": 1.5,
+          "min": 1,
+          "max": 4,
+          "step": 0.5,
+          "unit": "px"
+        },
+        {
+          "key": "radius",
+          "label": "圆角",
+          "type": "range",
+          "default": 20,
+          "min": 8,
+          "max": 32,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "color1",
+          "label": "霓虹色",
+          "type": "color",
+          "default": "#22d3ee"
+        },
+        {
+          "key": "color2",
+          "label": "拖尾色",
+          "type": "color",
+          "default": "#a855f7"
+        },
+        {
+          "key": "glow",
+          "label": "辉光强度",
+          "type": "range",
+          "default": 0.7,
+          "min": 0,
+          "max": 1,
+          "step": 0.05,
+          "unit": ""
+        }
+      ]
+    },
+    {
+      "id": "borderFade",
+      "index": 38,
+      "name": "淡出透明柔光",
+      "en": "Soft Fade Glow",
+      "tagline": "光在边缘呼吸，两端自然化开",
+      "description": "用一条两端透明的线性渐变铺在边框上，再让整层透明度缓慢呼吸；外圈叠一层大范围模糊光晕。画面里没有明确的「光点」，只有明暗的起伏，最容易和高级感、留白、克制这些词挂上钩。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "边框",
+        "柔光",
+        "呼吸"
+      ],
+      "useCases": [
+        "高端品牌官网",
+        "定价卡",
+        "邀请制产品",
+        "极简作品集"
+      ],
+      "keywords": [
+        "柔光",
+        "淡出",
+        "透明",
+        "呼吸",
+        "边框",
+        "高级",
+        "克制",
+        "留白",
+        "柔",
+        "光晕",
+        "渐变",
+        "品牌"
+      ],
+      "tip": "呼吸周期不要低于 4s。快于 3s 会从「呼吸」变成「闪烁」，质感立刻掉一档。",
+      "component": {
+        "export": "BorderFade",
+        "path": "src/effects/BorderFade.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "speed",
+          "label": "呼吸周期",
+          "type": "range",
+          "default": 5,
+          "min": 2,
+          "max": 12,
+          "step": 0.5,
+          "unit": "s"
+        },
+        {
+          "key": "color1",
+          "label": "主光色",
+          "type": "color",
+          "default": "#93c5fd"
+        },
+        {
+          "key": "color2",
+          "label": "高光色",
+          "type": "color",
+          "default": "#e2e8f0"
+        },
+        {
+          "key": "thickness",
+          "label": "描边粗细",
+          "type": "range",
+          "default": 1.5,
+          "min": 1,
+          "max": 4,
+          "step": 0.5,
+          "unit": "px"
+        },
+        {
+          "key": "radius",
+          "label": "圆角",
+          "type": "range",
+          "default": 22,
+          "min": 8,
+          "max": 32,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "glow",
+          "label": "光晕强度",
+          "type": "range",
+          "default": 0.6,
+          "min": 0,
+          "max": 1,
+          "step": 0.05,
+          "unit": ""
+        }
+      ]
+    },
+    {
+      "id": "borderDust",
+      "index": 39,
+      "name": "粒子流光消散",
+      "en": "Particle Dissolve",
+      "tagline": "光点沿边框奔跑，跑到尾部就散掉",
+      "description": "用 repeating-conic-gradient 把圆周切成等距的小点，再用同角度、同速度旋转的锥形遮罩让某一段圆弧渐隐。光点像跑进雾里一样消失，天然带「数据正在流动」的暗示，适合传输、推理、实时处理这类状态。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "边框",
+        "粒子",
+        "消散"
+      ],
+      "useCases": [
+        "数据传输状态",
+        "AI 推理中",
+        "实时监控大屏",
+        "加载与处理中"
+      ],
+      "keywords": [
+        "粒子",
+        "光点",
+        "消散",
+        "边框",
+        "数据",
+        "流动",
+        "传输",
+        "加载",
+        "处理中",
+        "科技",
+        "遮罩",
+        "流光"
+      ],
+      "tip": "点间距 8°–14° 最舒服；渐隐遮罩不要短于 90°，否则光点会「啪」地消失，反而显得掉帧。",
+      "component": {
+        "export": "BorderDust",
+        "path": "src/effects/BorderDust.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "speed",
+          "label": "奔跑周期",
+          "type": "range",
+          "default": 7,
+          "min": 2,
+          "max": 14,
+          "step": 0.5,
+          "unit": "s"
+        },
+        {
+          "key": "gap",
+          "label": "粒子间距",
+          "type": "range",
+          "default": 10,
+          "min": 6,
+          "max": 20,
+          "step": 1,
+          "unit": "°"
+        },
+        {
+          "key": "thickness",
+          "label": "描边粗细",
+          "type": "range",
+          "default": 2,
+          "min": 1,
+          "max": 5,
+          "step": 0.5,
+          "unit": "px"
+        },
+        {
+          "key": "radius",
+          "label": "圆角",
+          "type": "range",
+          "default": 20,
+          "min": 8,
+          "max": 32,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "color1",
+          "label": "主粒子色",
+          "type": "color",
+          "default": "#7dd3fc"
+        },
+        {
+          "key": "color2",
+          "label": "辅粒子色",
+          "type": "color",
+          "default": "#a5f3fc"
+        },
+        {
+          "key": "glow",
+          "label": "外发光",
+          "type": "range",
+          "default": 0.45,
+          "min": 0,
+          "max": 1,
+          "step": 0.05,
+          "unit": ""
+        }
+      ]
+    },
+    {
+      "id": "borderNebula",
+      "index": 40,
+      "name": "星云流光",
+      "en": "Nebula Drift",
+      "tagline": "几团模糊的色云在边框里缓慢漂移",
+      "description": "三层不同尺寸的径向渐变色团，各自以不同的速度旋转、缩放，再用 blur 与 screen 混合叠在一起。因为没有清晰边界，边框读起来像「星云在玻璃后面流动」，适合需要氛围而不是锐利科技感的场景。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "边框",
+        "星云",
+        "氛围"
+      ],
+      "useCases": [
+        "品牌故事页",
+        "音乐与音频产品",
+        "冥想与健康 App",
+        "年度报告封面"
+      ],
+      "keywords": [
+        "星云",
+        "氛围",
+        "朦胧",
+        "色云",
+        "边框",
+        "梦幻",
+        "艺术",
+        "漂移",
+        "柔",
+        "渐变",
+        "高级",
+        "情绪"
+      ],
+      "tip": "色团之间要留出重叠，否则接缝会出现明显暗带；整体周期建议 ≥ 10s，慢才是「漂移」。",
+      "component": {
+        "export": "BorderNebula",
+        "path": "src/effects/BorderNebula.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "speed",
+          "label": "漂移周期",
+          "type": "range",
+          "default": 12,
+          "min": 6,
+          "max": 24,
+          "step": 1,
+          "unit": "s"
+        },
+        {
+          "key": "color1",
+          "label": "色团 1",
+          "type": "color",
+          "default": "#3b82f6"
+        },
+        {
+          "key": "color2",
+          "label": "色团 2",
+          "type": "color",
+          "default": "#22d3ee"
+        },
+        {
+          "key": "color3",
+          "label": "色团 3",
+          "type": "color",
+          "default": "#f472b6"
+        },
+        {
+          "key": "thickness",
+          "label": "描边粗细",
+          "type": "range",
+          "default": 2,
+          "min": 1,
+          "max": 6,
+          "step": 0.5,
+          "unit": "px"
+        },
+        {
+          "key": "radius",
+          "label": "圆角",
+          "type": "range",
+          "default": 22,
+          "min": 8,
+          "max": 32,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "glow",
+          "label": "外发光",
+          "type": "range",
+          "default": 0.6,
+          "min": 0,
+          "max": 1,
+          "step": 0.05,
+          "unit": ""
+        }
+      ]
+    },
+    {
+      "id": "borderScan",
+      "index": 41,
+      "name": "扫描高光边框",
+      "en": "Scan Highlight",
+      "tagline": "一道光带斜扫过边框，像设备自检",
+      "description": "把高光带做成一条锐利的线性渐变，用 background-position 让它从一角扫到另一角，并且只显示在边框区域；卡面再叠一条更暗的扫描线。它自带「正在识别 / 校验 / 加载」的语义，扫完停一拍，比一直扫更让人安心。",
+      "category": "data",
+      "categoryLabel": "数据与高光",
+      "tags": [
+        "边框",
+        "扫描",
+        "高光"
+      ],
+      "useCases": [
+        "身份校验",
+        "支付确认",
+        "设备自检",
+        "AI 扫描与识别"
+      ],
+      "keywords": [
+        "扫描",
+        "高光",
+        "边框",
+        "校验",
+        "识别",
+        "加载",
+        "光带",
+        "自检",
+        "斜扫",
+        "科技",
+        "一次性",
+        "状态"
+      ],
+      "tip": "扫完要留一段静止时间（缓动的后 35%）。持续不停会制造焦虑，配合一次性的结果动效更自然。",
+      "component": {
+        "export": "BorderScan",
+        "path": "src/effects/BorderScan.tsx",
+        "registry": "src/effects/index.ts",
+        "importedBy": [
+          "src/effects/index.ts"
+        ]
+      },
+      "params": [
+        {
+          "key": "speed",
+          "label": "扫描周期",
+          "type": "range",
+          "default": 4,
+          "min": 1.5,
+          "max": 8,
+          "step": 0.5,
+          "unit": "s"
+        },
+        {
+          "key": "thickness",
+          "label": "描边粗细",
+          "type": "range",
+          "default": 1.5,
+          "min": 1,
+          "max": 4,
+          "step": 0.5,
+          "unit": "px"
+        },
+        {
+          "key": "radius",
+          "label": "圆角",
+          "type": "range",
+          "default": 18,
+          "min": 8,
+          "max": 32,
+          "step": 1,
+          "unit": "px"
+        },
+        {
+          "key": "color1",
+          "label": "光带主色",
+          "type": "color",
+          "default": "#60a5fa"
+        },
+        {
+          "key": "color2",
+          "label": "光带辅色",
+          "type": "color",
+          "default": "#22d3ee"
+        },
+        {
+          "key": "glow",
+          "label": "外发光",
+          "type": "range",
+          "default": 0.55,
+          "min": 0,
+          "max": 1,
+          "step": 0.05,
+          "unit": ""
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+.spring-demo {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 24px 20px;
+}
+
+.spring-stage {
+  position: relative;
+  width: min(620px, 100%);
+  height: 300px;
+  border-radius: 20px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(59, 130, 246, 0.12), transparent 60%),
+    #0a0b12;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.spring-stage.is-grabbing {
+  cursor: grabbing;
+}
+
+.spring-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(ellipse at 50% 50%, #000 20%, transparent 80%);
+}
+
+.spring-rail {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 50%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.spring-rail i {
+  width: 1px;
+  height: 9px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.spring-target {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1px;
+  height: 150px;
+  margin-top: -75px;
+  background: linear-gradient(180deg, transparent, rgba(59, 130, 246, 0.7), transparent);
+}
+
+.spring-target span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 74px;
+  height: 74px;
+  margin: -37px 0 0 -37px;
+  border-radius: 50%;
+  border: 1px dashed rgba(59, 130, 246, 0.3);
+  animation: spring-breathe 3s ease-in-out infinite;
+}
+
+.spring-scale {
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 26px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.22);
+}
+
+.spring-ball {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 66px;
+  height: 66px;
+  margin: -33px 0 0 -33px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 28%, #bfdbfe, #3b82f6 52%, #1e3a8a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  box-shadow:
+    0 18px 40px -14px rgba(59, 130, 246, 0.8),
+    inset 0 0 22px rgba(255, 255, 255, 0.14);
+  cursor: grab;
+  will-change: transform;
+  z-index: 3;
+}
+
+.spring-ball__shine {
+  position: absolute;
+  top: 12%;
+  left: 22%;
+  width: 22px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  filter: blur(4px);
+}
+
+.spring-ball__label {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.spring-ghost {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 66px;
+  height: 66px;
+  margin: -33px 0 0 -33px;
+  border-radius: 50%;
+  border: 1px solid rgba(96, 165, 250, 0.5);
+  opacity: 0;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.spring-live {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.spring-live b {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.spring-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: min(620px, 100%);
+}
+
+.spring-metrics > div {
+  display: grid;
+  gap: 3px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.spring-metrics span {
+  font-size: 9px;
+  color: var(--faint);
+  letter-spacing: 0.03em;
+}
+
+.spring-metrics b {
+  font-size: 15px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.spring-metrics em {
+  font-style: normal;
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.spring-metrics__hint {
+  color: var(--accent-bright);
+}
+
+@keyframes spring-breathe {
+  0%, 100% { transform: scale(0.94); opacity: 0.6; }
+  50% { transform: scale(1); opacity: 1; }
+}
+
+@media (max-width: 540px) {
+  .spring-stage { height: 260px; }
+  .spring-metrics { grid-template-columns: 1fr; }
+  .spring-metrics > div { grid-template-columns: 1fr auto auto; align-items: center; gap: 10px; }
+}

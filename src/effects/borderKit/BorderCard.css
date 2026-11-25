@@ -1,0 +1,596 @@
+/* ============================================================
+   边框动效通用外壳（六种变体共用）
+   统一结构：.bx(padding 让出描边) > .bx__aura / .bx__ring / .bx__card / .bx__spark
+   ============================================================ */
+
+@property --bx-a {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --bx-b {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.bx-stage {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 20px;
+  width: 100%;
+  min-height: 470px;
+  padding: 28px 20px;
+}
+
+.bx {
+  position: relative;
+  width: min(352px, 100%);
+  padding: var(--bx-thick, 1.5px);
+  border-radius: var(--bx-radius, 20px);
+  isolation: isolate;
+}
+
+/* 外发光：所有变体共用，默认由变体覆写 background */
+.bx__aura {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: var(--bx-glow, 0.55);
+  filter: blur(26px);
+  pointer-events: none;
+}
+
+.bx__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bx__ring::before,
+.bx__ring::after {
+  content: '';
+  position: absolute;
+}
+
+.bx__card {
+  position: relative;
+  padding: 26px 26px 22px;
+  border-radius: calc(var(--bx-radius, 20px) - var(--bx-thick, 1.5px));
+  background:
+    radial-gradient(circle at 82% -12%, var(--bx-c1-soft), transparent 58%),
+    radial-gradient(circle at 0% 100%, rgba(255, 255, 255, 0.03), transparent 45%),
+    var(--panel);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: var(--text);
+}
+
+/* 扫描线 / 粒子等叠加层（默认隐藏） */
+.bx__spark {
+  display: none;
+}
+
+/* ---------- 卡片内容 ---------- */
+.bx__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.bx__brand {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.bx__brand i {
+  font-style: normal;
+  font-size: 7px;
+  vertical-align: super;
+  color: var(--faint);
+}
+
+.bx__badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--bx-c1);
+  border: 1px solid color-mix(in srgb, var(--bx-c1) 42%, transparent);
+  background: color-mix(in srgb, var(--bx-c1) 14%, transparent);
+  box-shadow: 0 0 16px -6px var(--bx-c1);
+}
+
+.bx__kicker {
+  margin: 24px 0 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.bx__price {
+  display: flex;
+  align-items: baseline;
+  margin: 4px 0 0;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.bx__price i {
+  font-style: normal;
+  font-size: 20px;
+  font-weight: 500;
+  margin-right: 3px;
+  color: var(--muted);
+}
+
+.bx__price em {
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+  margin-left: 6px;
+  color: var(--faint);
+}
+
+.bx__desc {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--faint);
+}
+
+.bx__list {
+  display: grid;
+  gap: 9px;
+  margin: 20px 0 22px;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+}
+
+.bx__list li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
+  color: var(--text-soft);
+}
+
+.bx__list b {
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--bx-c1);
+  box-shadow: 0 0 8px var(--bx-c1);
+}
+
+.bx__cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 11px;
+  border: 0;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(
+    120deg,
+    var(--bx-c1),
+    color-mix(in srgb, var(--bx-c2) 65%, var(--bx-c1))
+  );
+  box-shadow: 0 14px 28px -18px var(--bx-c1);
+}
+
+.bx__cta span {
+  transition: transform 0.2s ease;
+}
+
+.bx__cta:hover span {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   1. 多色渐变流光 — 四色锥形渐变绕边旋转
+   ============================================================ */
+.bx-stage--flow .bx__ring::before {
+  inset: -55%;
+  background: conic-gradient(
+    from var(--bx-a),
+    var(--bx-c1) 0deg,
+    var(--bx-c2) 78deg,
+    var(--bx-c3) 156deg,
+    var(--bx-c4) 234deg,
+    var(--bx-c1) 312deg,
+    var(--bx-c2) 360deg
+  );
+  animation: bx-spin var(--bx-speed) linear infinite;
+}
+
+.bx-stage--flow .bx__aura {
+  inset: 8px;
+  background: conic-gradient(
+    from var(--bx-b),
+    var(--bx-c1),
+    var(--bx-c2),
+    var(--bx-c3),
+    var(--bx-c4),
+    var(--bx-c1)
+  );
+  animation: bx-spin-rev calc(var(--bx-speed) * 1.35) linear infinite;
+  opacity: calc(var(--bx-glow) * 0.85);
+}
+
+/* ============================================================
+   2. 局部霓虹描边 — 只有一小段被点亮，其余保持极暗
+   ============================================================ */
+.bx-stage--neon .bx {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07);
+}
+
+.bx-stage--neon .bx__ring::before {
+  inset: -50%;
+  background: conic-gradient(
+    from var(--bx-a),
+    transparent 0deg,
+    transparent 296deg,
+    var(--bx-c1) 326deg,
+    #ffffff 340deg,
+    var(--bx-c1) 350deg,
+    transparent 360deg
+  );
+  animation: bx-spin calc(var(--bx-speed) * 1.2) linear infinite,
+    bx-neon-pulse 2.6s ease-in-out infinite;
+}
+
+.bx-stage--neon .bx__ring::after {
+  inset: -50%;
+  background: conic-gradient(
+    from var(--bx-a),
+    transparent 0deg,
+    transparent 268deg,
+    color-mix(in srgb, var(--bx-c1) 70%, transparent) 324deg,
+    var(--bx-c2) 342deg,
+    transparent 360deg
+  );
+  filter: blur(9px);
+  animation: bx-spin calc(var(--bx-speed) * 1.2) linear infinite;
+}
+
+.bx-stage--neon .bx__aura {
+  inset: 10px;
+  background: conic-gradient(
+    from var(--bx-b),
+    transparent 0deg,
+    transparent 290deg,
+    var(--bx-c1) 335deg,
+    transparent 360deg
+  );
+  animation: bx-spin-rev calc(var(--bx-speed) * 1.2) linear infinite;
+  filter: blur(20px);
+  opacity: calc(var(--bx-glow) * 1.1);
+}
+
+/* ============================================================
+   3. 淡出透明柔光 — 斜向柔光描边呼吸，两端自然淡出
+   ============================================================ */
+.bx-stage--fade .bx {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--bx-c1) 20%, transparent);
+}
+
+.bx-stage--fade .bx__ring::before {
+  inset: -30%;
+  background: linear-gradient(
+    125deg,
+    transparent 12%,
+    color-mix(in srgb, var(--bx-c1) 70%, transparent) 36%,
+    var(--bx-c2) 50%,
+    color-mix(in srgb, var(--bx-c1) 55%, transparent) 64%,
+    transparent 88%
+  );
+  animation: bx-breathe var(--bx-speed) ease-in-out infinite;
+}
+
+.bx-stage--fade .bx__aura {
+  inset: -6px;
+  border-radius: calc(var(--bx-radius) + 6px);
+  background: linear-gradient(
+    125deg,
+    transparent 16%,
+    color-mix(in srgb, var(--bx-c1) 80%, transparent) 42%,
+    var(--bx-c2) 56%,
+    color-mix(in srgb, var(--bx-c1) 70%, transparent) 70%,
+    transparent 88%
+  );
+  animation: bx-breathe var(--bx-speed) ease-in-out infinite;
+  filter: blur(16px);
+}
+
+.bx-stage--fade .bx__card {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 0 42px -18px color-mix(in srgb, var(--bx-c2) 55%, transparent);
+}
+
+/* ============================================================
+   4. 粒子流光消散 — 沿边框奔跑的光点，尾部落成透明
+   ============================================================ */
+.bx-stage--dust .bx__ring::before {
+  inset: -50%;
+  background: repeating-conic-gradient(
+    from var(--bx-a),
+    var(--bx-c1) 0deg 1.15deg,
+    transparent 1.15deg var(--bx-gap)
+  );
+  mask-image: conic-gradient(
+    from calc(var(--bx-a) - 30deg),
+    transparent 0deg,
+    #000 110deg,
+    #000 250deg,
+    transparent 360deg
+  );
+  -webkit-mask-image: conic-gradient(
+    from calc(var(--bx-a) - 30deg),
+    transparent 0deg,
+    #000 110deg,
+    #000 250deg,
+    transparent 360deg
+  );
+  animation: bx-spin var(--bx-speed) linear infinite;
+}
+
+.bx-stage--dust .bx__ring::after {
+  inset: -50%;
+  background: repeating-conic-gradient(
+    from calc(var(--bx-a) + var(--bx-gap) / 2),
+    var(--bx-c2) 0deg 0.85deg,
+    transparent 0.85deg var(--bx-gap)
+  );
+  opacity: 0.65;
+  mask-image: conic-gradient(
+    from calc(var(--bx-a) + 20deg),
+    transparent 0deg,
+    #000 90deg,
+    #000 210deg,
+    transparent 320deg
+  );
+  -webkit-mask-image: conic-gradient(
+    from calc(var(--bx-a) + 20deg),
+    transparent 0deg,
+    #000 90deg,
+    #000 210deg,
+    transparent 320deg
+  );
+  animation: bx-spin var(--bx-speed) linear infinite;
+}
+
+.bx-stage--dust .bx__aura {
+  background: radial-gradient(
+    55% 55% at 50% 50%,
+    color-mix(in srgb, var(--bx-c1) 60%, transparent),
+    transparent 70%
+  );
+  animation: bx-halo calc(var(--bx-speed) * 1.2) ease-in-out infinite;
+  filter: blur(28px);
+}
+
+/* ============================================================
+   5. 星云流光 — 多层模糊色团在边框里缓慢漂移
+   ============================================================ */
+.bx-stage--nebula .bx__ring::before {
+  inset: -25%;
+  background:
+    radial-gradient(58% 58% at 22% 24%, var(--bx-c1), transparent 68%),
+    radial-gradient(52% 52% at 78% 32%, var(--bx-c2), transparent 68%),
+    radial-gradient(62% 62% at 48% 88%, var(--bx-c3), transparent 70%);
+  filter: blur(7px) saturate(1.35);
+  animation: bx-drift-a var(--bx-speed) ease-in-out infinite alternate;
+}
+
+.bx-stage--nebula .bx__ring::after {
+  inset: -25%;
+  background:
+    radial-gradient(46% 46% at 74% 76%, var(--bx-c4), transparent 66%),
+    radial-gradient(44% 44% at 26% 70%, var(--bx-c2), transparent 66%);
+  filter: blur(12px) saturate(1.2);
+  mix-blend-mode: screen;
+  opacity: 0.8;
+  animation: bx-drift-b calc(var(--bx-speed) * 1.5) ease-in-out infinite alternate;
+}
+
+.bx-stage--nebula .bx__aura {
+  background:
+    radial-gradient(circle at 30% 30%, var(--bx-c1), transparent 60%),
+    radial-gradient(circle at 70% 70%, var(--bx-c2), transparent 60%);
+  filter: blur(30px);
+  opacity: calc(var(--bx-glow) * 0.9);
+  animation: bx-halo calc(var(--bx-speed) * 1.6) ease-in-out infinite;
+}
+
+.bx-stage--nebula .bx__card {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 0 60px -24px var(--bx-c1);
+}
+
+/* ============================================================
+   6. 扫描高光边框 — 一道锐利光带扫过边框与卡面
+   ============================================================ */
+.bx-stage--scan .bx {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.bx-stage--scan .bx__ring::before {
+  inset: 0;
+  background: linear-gradient(
+    104deg,
+    transparent 34%,
+    rgba(255, 255, 255, 0.16) 44%,
+    #ffffff 49%,
+    var(--bx-c1) 52%,
+    color-mix(in srgb, var(--bx-c2) 70%, transparent) 57%,
+    transparent 66%
+  );
+  background-size: 280% 100%;
+  animation: bx-sweep var(--bx-speed) cubic-bezier(0.55, 0.05, 0.3, 0.95) infinite;
+}
+
+.bx-stage--scan .bx__aura {
+  background: linear-gradient(
+    104deg,
+    transparent 40%,
+    color-mix(in srgb, var(--bx-c1) 55%, transparent) 50%,
+    transparent 60%
+  );
+  background-size: 280% 100%;
+  animation: bx-sweep var(--bx-speed) cubic-bezier(0.55, 0.05, 0.3, 0.95) infinite;
+  filter: blur(18px);
+  opacity: calc(var(--bx-glow) * 1.1);
+}
+
+.bx-stage--scan .bx__spark {
+  display: block;
+  position: absolute;
+  inset: var(--bx-thick, 1.5px);
+  border-radius: calc(var(--bx-radius, 20px) - var(--bx-thick, 1.5px));
+  overflow: hidden;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.bx-stage--scan .bx__spark::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 9%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    color-mix(in srgb, var(--bx-c2) 10%, transparent) 55%,
+    rgba(255, 255, 255, 0.18) 90%,
+    rgba(255, 255, 255, 0.55) 97%,
+    transparent 100%
+  );
+  animation: bx-scanline var(--bx-speed) cubic-bezier(0.55, 0.05, 0.3, 0.95) infinite;
+}
+
+/* ---------- 关键帧 ---------- */
+@keyframes bx-spin {
+  to {
+    --bx-a: 360deg;
+  }
+}
+
+@keyframes bx-spin-rev {
+  to {
+    --bx-b: -360deg;
+  }
+}
+
+@keyframes bx-neon-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.62;
+  }
+}
+
+@keyframes bx-breathe {
+  0%,
+  100% {
+    opacity: calc(var(--bx-glow) * 0.62 + 0.08);
+  }
+  50% {
+    opacity: calc(var(--bx-glow) * 1.3 + 0.15);
+  }
+}
+
+@keyframes bx-halo {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: calc(var(--bx-glow) * 0.55);
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: calc(var(--bx-glow) * 1.05);
+  }
+}
+
+@keyframes bx-drift-a {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(28deg) scale(1.14);
+  }
+}
+
+@keyframes bx-drift-b {
+  0% {
+    transform: rotate(0deg) translate3d(-6px, 4px, 0) scale(1.06);
+  }
+  100% {
+    transform: rotate(-22deg) translate3d(8px, -6px, 0) scale(0.94);
+  }
+}
+
+@keyframes bx-sweep {
+  0% {
+    background-position: 140% 0;
+  }
+  62%,
+  100% {
+    background-position: -40% 0;
+  }
+}
+
+@keyframes bx-scanline {
+  0% {
+    transform: translateY(-120%);
+  }
+  62%,
+  100% {
+    transform: translateY(420%);
+  }
+}
+
+/* ---------- 降级 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .bx__ring::before,
+  .bx__ring::after,
+  .bx__aura,
+  .bx__spark::before {
+    animation: none !important;
+  }
+  .bx-stage--scan .bx__ring::before,
+  .bx-stage--scan .bx__aura {
+    background-position: 50% 0;
+  }
+  .bx-stage--fade .bx {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--bx-c1) 20%, transparent);
+}
+
+.bx-stage--fade .bx__ring::before {
+    opacity: 0.9;
+  }
+}

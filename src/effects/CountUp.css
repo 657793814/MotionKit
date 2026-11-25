@@ -1,0 +1,203 @@
+.count-demo {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 440px;
+  padding: 24px;
+}
+
+.count-card {
+  position: relative;
+  width: min(460px, 100%);
+  padding: 26px 26px 22px;
+  border-radius: 22px;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(circle at 100% 0%, rgba(34, 211, 238, 0.09), transparent 45%),
+    radial-gradient(circle at 0% 20%, rgba(59, 130, 246, 0.12), transparent 50%),
+    var(--panel);
+  box-shadow: 0 35px 70px -45px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.count-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.count-card__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.count-card__label i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.count-card__live {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  color: var(--faint);
+}
+
+.count-main {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.count-value {
+  font-size: clamp(42px, 8vw, 58px);
+  font-weight: 700;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(110deg, #fff 10%, #93c5fd 58%, #67e8f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.count-value__prefix {
+  font-size: 24px;
+  font-weight: 500;
+  margin-right: 2px;
+  vertical-align: 8px;
+}
+
+.count-value__suffix {
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-left: 4px;
+  color: var(--muted);
+  -webkit-text-fill-color: var(--muted);
+}
+
+.count-delta {
+  flex: none;
+  padding: 4px 8px;
+  border-radius: 7px;
+  font-size: 10.5px;
+  font-weight: 600;
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+}
+
+.count-note {
+  margin: 9px 0 0;
+  font-size: 11px;
+  color: var(--faint);
+}
+
+.count-chart {
+  position: relative;
+  height: 96px;
+  margin: 22px -4px 4px;
+}
+
+.count-chart svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.count-chart__line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: count-draw 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  filter: drop-shadow(0 0 6px rgba(59, 130, 246, 0.45));
+}
+
+.count-chart__area {
+  opacity: 0;
+  animation: count-fade 1.4s ease 0.3s forwards;
+}
+
+.count-chart__dot {
+  opacity: 0;
+  animation: count-fade 0.6s ease 1.2s forwards;
+  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.9));
+}
+
+.count-chart__tag {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--faint);
+}
+
+.count-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.count-stats div {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: 11px;
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--line);
+}
+
+.count-stats span {
+  font-size: 10px;
+  color: var(--faint);
+}
+
+.count-stats b {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+.count-micro {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 40px;
+  margin-top: 16px;
+  opacity: 0.7;
+}
+
+.count-micro i {
+  flex: 1;
+  border-radius: 2px 2px 0 0;
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.8), rgba(59, 130, 246, 0.08));
+  transform-origin: bottom;
+  animation: count-bar 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes count-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes count-fade {
+  to { opacity: 1; }
+}
+
+@keyframes count-bar {
+  from { transform: scaleY(0.1); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}

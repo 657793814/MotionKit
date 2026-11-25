@@ -1,0 +1,213 @@
+@property --beam-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.beam-stage {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 440px;
+  padding: 24px;
+}
+
+.beam-wrap {
+  --beam-angle: 0deg;
+  position: relative;
+  width: min(380px, 100%);
+  padding: var(--beam-thickness, 1.5px);
+  border-radius: 25px;
+  overflow: hidden;
+  isolation: isolate;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.beam-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -60%;
+  background: conic-gradient(
+    from var(--beam-angle),
+    transparent 0deg,
+    var(--beam-c1) calc(var(--beam-size) * 0.55),
+    var(--beam-c2) var(--beam-size),
+    transparent calc(var(--beam-size) + 24deg),
+    transparent 360deg
+  );
+  animation: beam-rotate var(--beam-speed) linear infinite;
+  z-index: 0;
+}
+
+.beam-wrap.has-glow {
+  box-shadow:
+    0 0 55px -18px var(--beam-glow),
+    0 40px 80px -40px rgba(0, 0, 0, 0.9);
+}
+
+@keyframes beam-rotate {
+  to {
+    --beam-angle: 360deg;
+  }
+}
+
+.beam-card {
+  position: relative;
+  z-index: 1;
+  padding: 26px 28px 24px;
+  border-radius: 24px;
+  background:
+    radial-gradient(circle at 80% -10%, rgba(34, 211, 238, 0.09), transparent 55%),
+    radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.13), transparent 50%),
+    var(--panel);
+  color: var(--text);
+  overflow: hidden;
+}
+
+.beam-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  pointer-events: none;
+}
+
+.beam-card__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.beam-logo {
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.beam-logo span {
+  font-size: 8px;
+  vertical-align: super;
+  color: var(--faint);
+}
+
+.beam-badge {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  padding: 4px 9px;
+  border-radius: 999px;
+  color: #d8ccff;
+  background: rgba(59, 130, 246, 0.18);
+  border: 1px solid rgba(59, 130, 246, 0.4);
+  box-shadow: 0 0 18px -6px rgba(59, 130, 246, 0.8);
+}
+
+.beam-plan {
+  margin-top: 26px;
+}
+
+.beam-plan__name {
+  font-size: 13px;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.beam-price {
+  margin: 6px 0 0;
+  font-size: 46px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+
+.beam-price i {
+  font-style: normal;
+  font-size: 22px;
+  font-weight: 500;
+  vertical-align: 12px;
+  margin-right: 3px;
+  color: var(--muted);
+}
+
+.beam-price span {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--faint);
+  letter-spacing: 0;
+  margin-left: 6px;
+}
+
+.beam-plan__note {
+  margin: 6px 0 0;
+  font-size: 11px;
+  color: var(--faint);
+}
+
+.beam-list {
+  margin: 22px 0 24px;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--line);
+  list-style: none;
+  display: grid;
+  gap: 10px;
+}
+
+.beam-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--text-soft);
+}
+
+.beam-list b {
+  display: grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  font-size: 9px;
+  color: #a7f3d0;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.beam-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: linear-gradient(120deg, #3b82f6, #1e40af);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 14px 30px -18px rgba(59, 130, 246, 1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.beam-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 34px -16px rgba(59, 130, 246, 0.9);
+}
+
+.beam-cta span {
+  transition: transform 0.2s ease;
+}
+
+.beam-cta:hover span {
+  transform: translateX(3px);
+}
+
+.beam-foot {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 10.5px;
+  color: var(--faint);
+  letter-spacing: 0.04em;
+}
