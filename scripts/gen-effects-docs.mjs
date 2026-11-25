@@ -250,6 +250,39 @@ push(
 const markdown = `${lines.join('\n').replace(/\n{3,}/g, '\n\n').trimEnd()}\n`
 const jsonText = `${JSON.stringify(json, null, 2)}\n`
 
+/* --------------------------------------------------- README 概览表（可选） */
+
+const README_BEGIN = '<!-- effects:table:begin -->'
+const README_END = '<!-- effects:table:end -->'
+
+const readmeBlock = [
+  README_BEGIN,
+  `<!-- 由 npm run docs 自动生成，请勿手改这两行标记之间的内容 -->`,
+  '',
+  `共 **${ordered.length}** 个动效，分 ${categoriesOrder.length} 类：`,
+  '',
+  '| 分类 | 数量 | 代表动效 |',
+  '| --- | --- | --- |',
+  ...categoriesOrder.map((id) => {
+    const group = ordered.filter((e) => e.category === id)
+    const names = group.slice(0, 3).map((e) => e.name)
+    const suffix = group.length > 3 ? '…' : ''
+    return `| ${cell(categoryLabel[id] ?? id)} | ${group.length} | ${names.join('、')}${suffix} |`
+  }),
+  '',
+  README_END,
+].join('\n')
+
+async function buildReadme() {
+  const file = path.join(root, 'README.md')
+  const source = await readFile(file, 'utf8').catch(() => null)
+  if (!source) return null
+  const start = source.indexOf(README_BEGIN)
+  const end = source.indexOf(README_END)
+  if (start === -1 || end === -1 || end < start) return null
+  return `${source.slice(0, start)}${readmeBlock}${source.slice(end + README_END.length)}`
+}
+
 /* ----------------------------------------------------------------- 写入 */
 
 async function emit(relPath, content) {
@@ -266,6 +299,9 @@ try {
   const results = []
   results.push(['docs/EFFECTS.md', await emit('docs/EFFECTS.md', markdown)])
   results.push(['docs/effects.json', await emit('docs/effects.json', jsonText)])
+
+  const readme = await buildReadme()
+  if (readme !== null) results.push(['README.md', await emit('README.md', readme)])
 
   const problems = results.filter(([, state]) => state === 'stale' || state === 'missing')
   if (CHECK && problems.length) {
