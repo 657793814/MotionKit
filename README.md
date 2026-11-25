@@ -22,6 +22,7 @@ npm run dev     # http://localhost:5178
 ![动效详情](docs/images/detail-dark.png)
 
 **智能选型**：一句场景描述，从全部动效里挑出最合适的几个，附匹配度与理由。
+
 **皮肤配置**：6 套调色，亮暗各自渲染，还能再叠一层自定义主色。
 
 <table>
