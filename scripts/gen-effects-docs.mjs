@@ -11,6 +11,7 @@
  *
  * 由 npm run docs、predev、prebuild 调用，生成物禁止手改。
  */
+import { existsSync } from 'node:fs'
 import { readFile, readdir, mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { loadCatalog, root } from './lib/load-catalog.mjs'
@@ -27,6 +28,19 @@ const registrySource = await readFile(registryPath, 'utf8')
 const registryBlock = registrySource.slice(registrySource.indexOf('export const demos'))
 const demos = new Map()
 for (const m of registryBlock.matchAll(/^\s+(\w+):\s*(\w+),?$/gm)) demos.set(m[1], m[2])
+if (demos.size === 0) throw new Error('未能从 src/effects/index.ts 解析出 demos 注册表')
+
+const unregistered = catalog.filter((e) => !demos.get(e.id))
+if (unregistered.length) {
+  console.warn(
+    `⚠ ${unregistered.length} 个动效没有在 src/effects/index.ts 注册：` +
+      unregistered.map((e) => e.id).join('、'),
+  )
+}
+const missingFiles = [...demos.values()].filter(
+  (name) => !existsSync(path.join(root, 'src/effects', `${name}.tsx`)),
+)
+if (missingFiles.length) console.warn(`⚠ 注册了但没有组件文件：${missingFiles.join('、')}`)
 
 /* ------------------------------------------------------------ 引用位置扫描 */
 
@@ -242,8 +256,8 @@ for (const categoryId of categoriesOrder) {
 push(
   '---',
   '',
-  `共 ${ordered.length} 个动效。新增特效请遵循 [AGENTS.md](../AGENTS.md) 里的《新增动效规约》，` +
-    '并确保 `npm run docs` 无差异（或直接跑 `npm run docs` 让它重新生成）。',
+  `共 ${ordered.length} 个动效。新增或修改动效请遵循 [AGENTS.md §5《新增 / 修改动效的规约》](../AGENTS.md)，` +
+    '改完跑 `npm run docs` 重新生成本文件（`docs:check` 会校验是否落后）。',
   '',
 )
 

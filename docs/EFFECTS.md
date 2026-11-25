@@ -1187,4 +1187,4 @@ import StepProgress from './effects/StepProgress'
 
 ---
 
-共 41 个动效。新增特效请遵循 [AGENTS.md](../AGENTS.md) 里的《新增动效规约》，并确保 `npm run docs` 无差异（或直接跑 `npm run docs` 让它重新生成）。
+共 41 个动效。新增或修改动效请遵循 [AGENTS.md §5《新增 / 修改动效的规约》](../AGENTS.md)，改完跑 `npm run docs` 重新生成本文件（`docs:check` 会校验是否落后）。

@@ -1,13 +1,44 @@
 # MotionKit · UI 动效系统
 
-一套可交互的 UI 动效库与展示工作台：**41 个手写动效**、**6 套皮肤 × 亮暗双主题**，支持现场调参、复制代码、按场景智能选型。
+一套可交互的 UI 动效库与展示工作台：**手写动效**、**6 套皮肤 × 亮暗双主题**，支持现场调参、复制代码、按场景智能选型。
 
 没有 UI 库，没有动画库 —— 每个效果都是可以直接抄进项目的 CSS + TypeScript。
+
+![MotionKit 首页](docs/images/home-dark.png)
 
 ```bash
 npm install
 npm run dev     # http://localhost:5178
 ```
+
+## 界面一览
+
+**动效库**：8 类筛选、卡片即预览，搜索、收藏、参数记忆都在一屏内。
+
+![动效库](docs/images/library-dark.png)
+
+**动效详情**：左边 Live Preview，右边参数调节，改完直接复制代码。
+
+![动效详情](docs/images/detail-dark.png)
+
+**智能选型**：一句场景描述，从全部动效里挑出最合适的几个，附匹配度与理由。
+**皮肤配置**：6 套调色，亮暗各自渲染，还能再叠一层自定义主色。
+
+<table>
+  <tr>
+    <td width="64%" valign="top"><img src="docs/images/recommender-dark.png" alt="智能选型面板" /></td>
+    <td width="36%" valign="top"><img src="docs/images/skins-dark.png" alt="皮肤配置面板" /></td>
+  </tr>
+</table>
+
+**亮色主题**与**移动端**：同一套 token 双主题渲染，窄屏自动堆叠成单列。
+
+<table>
+  <tr>
+    <td width="77%" valign="top"><img src="docs/images/home-light.png" alt="亮色主题首页" /></td>
+    <td width="23%" valign="top"><img src="docs/images/home-mobile.png" alt="移动端首页" /></td>
+  </tr>
+</table>
 
 ## 里面有什么
 

@@ -5,7 +5,7 @@
 
 ## 1. 这是什么
 
-MotionKit 是一套 **可交互的 UI 动效库 + 展示工作台**：收录 41 个动效 Demo（鼠标 / 滚动 / 文字 / 数据高光 / 基础缓动 / 弹窗 / 组件 / 液态玻璃 / 边框 8 类），支持现场调参、查看代码、切换 6 套皮肤与亮暗主题，并带一个「描述场景 → 推荐动效」的选型器。
+MotionKit 是一套 **可交互的 UI 动效库 + 展示工作台**：收录手写动效 Demo，按「鼠标 / 滚动 / 文字 / 数据高光 / 基础缓动 / 弹窗 / 组件 / 液态玻璃」等分类组织（准确数量与清单以 [`docs/EFFECTS.md`](docs/EFFECTS.md) 为准），支持现场调参、查看代码、切换 6 套皮肤与亮暗主题，并带一个「描述场景 → 推荐动效」的选型器。
 
 纯前端：React 19 + TypeScript + Vite 6，**没有 UI 库，也没有动画库**（所有动效都是手写 CSS/JS）。配置持久化在本地 JSON 文件（见 §8）。
 
@@ -13,7 +13,7 @@ MotionKit 是一套 **可交互的 UI 动效库 + 展示工作台**：收录 41 
 
 | 想做的事 | 看这个 |
 | --- | --- |
-| 浏览全部动效（人 / LLM 读） | **[`docs/EFFECTS.md`](docs/EFFECTS.md)** — 开头是 41 行速查表，下面是逐个小节的描述、适用场景、参数表、最小接入代码 |
+| 浏览全部动效（人 / LLM 读） | **[`docs/EFFECTS.md`](docs/EFFECTS.md)** — 开头是速查表，下面是逐个小节的描述、适用场景、参数表、最小接入代码 |
 | 程序化读取元数据 | **[`docs/effects.json`](docs/effects.json)** — 同源结构化数据 |
 | 只有一句需求，想找现成的 | `npm run find -- 弹窗 毛玻璃`（按 id/名称/标签/关键词/场景/描述打分） |
 | 想抄可粘贴的完整代码（含 CSS） | 应用内打开动效详情页 → 「代码」面板；对应 `catalog.ts` 里该特效的 `code(params)` |
@@ -36,7 +36,7 @@ src/
   styles/          app.css / global.css / skins.css
 server/local-store.mjs   Vite 中间件：/api/config 读写 .motionkit/config.json
 scripts/           生成与查询脚本（docs / find）
-docs/              自动生成的动效清单（勿手改）
+docs/              自动生成的动效清单（勿手改）+ images/（README 真实截图）
 ```
 
 ## 4. 命令
@@ -137,6 +137,7 @@ npm run docs:check    # 确认没有落后
 - **配置持久化**：`src/lib/configStore.ts` 的 `usePersistentState(key, initial)`。文件 `.motionkit/config.json` 是唯一真源（经 `server/local-store.mjs` 提供的 `/api/config` 读写），localStorage 只做首屏缓存；接口不可用时自动降级。**不要退回纯 localStorage，也不要绕开这个 hook 单独存盘**。新增配置项 = 新增一个 key，无需改服务端。
 - **智能选型**：`src/lib/recommend.ts`。默认走本地关键词打分（无网络、无密钥）；开启 AI 后走 OpenAI 兼容接口，失败自动回落本地。改打分权重会影响所有动效的推荐排序。
 - **自用动效层**：`src/components/SelfEffects.tsx` 里是外壳自己用的 `TypedTitle`（打印机）、`DecodeText`（文字解码）、`useArmed`（进入视口才播放）等。新增标题 / 说明文字时优先复用它们，而不是再写一套。
+- **README 配图**：都在 `docs/images/`，是跑起来真机截的（1440×900 @2x，暗色为主，另有亮色 / 移动端 / 面板特写）。改动了首屏、动效库、详情页、选型或皮肤面板的视觉后，顺手重拍对应图片，不要用设计稿或拼贴图占位。
 
 ## 9. 不要做
 
